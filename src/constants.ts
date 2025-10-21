@@ -137,7 +137,63 @@ Your data could be exposed to anyone on the same network.
         'Use a VPN: A Virtual Private Network (VPN) encrypts your internet traffic, making it unreadable to eavesdroppers.',
         'Check for HTTPS: Only enter sensitive information on websites that start with "https" (the \'s\' stands for secure).',
         'Avoid Critical Tasks: Don\'t do online banking or access other sensitive accounts on public networks if you can avoid it.',
-        '"Forget" the Network: After you\'re done, tell your device to forget the network so it doesn\'t reconnect automatically.',
+        '"Forget" the Network: After you\'re done, tell your device to forget the network so it doesn't reconnect automatically.',
+      ],
+    },
+  },
+  {
+    id: 7,
+    front: {
+      title: 'Vishing (Voice Phishing)',
+      content: `
+A call center agent calls you, claiming to be from your bank or tech support. They sound professional and urgent.
+
+They ask you to "verify" your account details or install "security software."
+      `.trim(),
+    },
+    back: {
+      title: 'Analysis: How to Handle Vishing',
+      analysis: [
+        'Hang Up Immediately: Legitimate companies will never call you unsolicited and ask for sensitive information.',
+        'Verify Independently: Call the company back using the official phone number listed on their website or on the back of your card.',
+        'Never Install Software: Do not grant remote access or install software requested by an unexpected caller.',
+      ],
+    },
+  },
+  {
+    id: 8,
+    front: {
+      title: 'CEO Fraud / Wire Transfer Scam',
+      content: `
+An email appears to be from your CEO or a senior executive, urgently requesting a wire transfer to a new vendor account for a "confidential acquisition."
+      `.trim(),
+    },
+    back: {
+      title: 'Analysis: Spotting Executive Scams',
+      analysis: [
+        'Check the Sender: Scrutinize the email address. It often uses a slight misspelling or a free email service.',
+        'Verify the Request: Always confirm financial requests through a secondary, known channel (e.g., call the executive on their known office line).',
+        'Sense of Secrecy/Urgency: Scammers use phrases like "confidential" or "do this immediately" to bypass standard procedures.',
+      ],
+    },
+  },
+  {
+    id: 9,
+    front: {
+      title: 'Data Breach Response',
+      content: `
+You receive an alert that a service you use (like a social media site or retailer) has suffered a data breach.
+
+What should you do next?
+      `.trim(),
+    },
+    back: {
+      title: 'Analysis: Immediate Action Steps',
+      analysis: [
+        'Change Passwords: Immediately change the password for the breached account and any other accounts that used the same password.',
+        'Enable 2FA: If you haven\'t already, enable Two-Factor Authentication on all critical accounts.',
+        'Monitor Accounts: Check your bank statements and credit reports for any suspicious activity.',
+        'Be Wary of Follow-up Scams: Scammers often use breach lists to send targeted phishing emails, pretending to be the breached company.',
       ],
     },
   },
@@ -195,5 +251,36 @@ You've won a $1000 gift card! Claim it now by visiting hxxp://bit.ly/super-prize
     `.trim(),
 isPhish: true,
     explanation: 'This is phishing. Unsolicited prize winnings are a huge red flag. The shortened link (bit.ly) hides the true destination, and the sense of urgency ("Only 3 left!") is a common tactic.',
+  },
+  {
+    id: 6,
+    content: `
+(Phone Call Transcript)
+"Hello, this is the IRS calling. We have filed a lawsuit against you for tax evasion. You must pay $5,000 immediately via gift card to avoid arrest."
+    `.trim(),
+    isPhish: true,
+    explanation: 'This is Vishing (voice phishing). The IRS or any government agency will never call you threatening immediate arrest or demanding payment via gift cards or wire transfers.',
+  },
+  {
+    id: 7,
+    content: `
+From: CEO Name <ceo.name@company-domain.co>
+Subject: URGENT: New Vendor Payment Required
+
+Team, I need you to process a $25,000 wire transfer immediately to the attached account details. This is for the confidential 'Project Phoenix' acquisition. Do not discuss this with anyone.
+    `.trim(),
+    isPhish: true,
+    explanation: 'This is CEO Fraud/Business Email Compromise. The email address is slightly off (.co instead of .com), and the request uses extreme urgency and secrecy to bypass standard financial controls.',
+  },
+  {
+    id: 8,
+    content: `
+From: Your Bank <alerts@bankname.com>
+Subject: Important Notice Regarding Your Account
+
+We are updating our terms of service. Please review the new terms by logging into your account through our official website at bankname.com.
+    `.trim(),
+    isPhish: false,
+    explanation: 'This is likely legitimate. It directs you to the official domain and asks you to log in normally, rather than clicking a suspicious link within the email.',
   },
 ];
