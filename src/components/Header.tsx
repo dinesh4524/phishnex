@@ -5,7 +5,6 @@ import { BookOpen } from '@/components/icons/BookOpen';
 import { ScanLine } from '@/components/icons/ScanLine';
 import { Swords } from '@/components/icons/Swords';
 import { Wrench } from '@/components/icons/Wrench';
-import { Sun, Moon } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 
 interface HeaderProps {
@@ -14,7 +13,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   
   const navItems: { id: Page; label: string, icon: React.ReactNode }[] = [
     { id: 'home', label: 'Home', icon: <ShieldCheck className="w-5 h-5 mr-2"/> },
@@ -67,18 +66,6 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
               </li>
             ))}
           </ul>
-          
-          <button
-            onClick={toggleTheme}
-            className={`p-2 rounded-full transition-colors ${
-              theme === 'dark' 
-                ? 'text-cyan-400 hover:bg-cyan-900/50' 
-                : 'text-gray-700 hover:bg-gray-300'
-            }`}
-            aria-label="Toggle theme"
-          >
-            {theme === 'dark' ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
-          </button>
         </div>
       </nav>
     </header>
