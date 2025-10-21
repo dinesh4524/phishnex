@@ -23,22 +23,26 @@ const CyberCard: React.FC<{ card: LearnCardData }> = ({ card }) => {
     <div className="group w-full max-w-md h-80 [perspective:1000px]">
       <div className="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
         {/* Front */}
-        <div className={`absolute inset-0 rounded-xl p-6 flex flex-col justify-center ${frontClasses}`}>
-          <h3 className={`text-2xl font-orbitron mb-4 ${frontTitleClasses}`}>{card.front.title}</h3>
-          <pre className={`text-sm text-left whitespace-pre-wrap font-sans ${contentClasses}`}>{card.front.content}</pre>
+        <div className={`absolute inset-0 rounded-xl p-6 flex flex-col ${frontClasses}`}>
+          <h3 className={`text-2xl font-orbitron mb-4 flex-shrink-0 ${frontTitleClasses}`}>{card.front.title}</h3>
+          <div className="overflow-y-auto flex-grow">
+            <pre className={`text-sm text-left whitespace-pre-wrap font-sans ${contentClasses}`}>{card.front.content}</pre>
+          </div>
         </div>
         
         {/* Back */}
-        <div className={`absolute inset-0 rounded-xl p-6 [transform:rotateY(180deg)] [backface-visibility:hidden] ${backClasses}`}>
-          <h3 className={`text-2xl font-orbitron mb-4 ${backTitleClasses}`}>{card.back.title}</h3>
-          <ul className="space-y-3 text-left">
-            {card.back.analysis.map((item, index) => (
-              <li key={index} className="flex items-start">
-                <span className={`mr-2 ${bulletClasses}`}>»</span>
-                <p className={`${contentClasses}`}>{item}</p>
-              </li>
-            ))}
-          </ul>
+        <div className={`absolute inset-0 rounded-xl p-6 flex flex-col [transform:rotateY(180deg)] [backface-visibility:hidden] ${backClasses}`}>
+          <h3 className={`text-2xl font-orbitron mb-4 flex-shrink-0 ${backTitleClasses}`}>{card.back.title}</h3>
+          <div className="overflow-y-auto flex-grow">
+            <ul className="space-y-3 text-left">
+              {card.back.analysis.map((item, index) => (
+                <li key={index} className="flex items-start">
+                  <span className={`mr-2 ${bulletClasses}`}>»</span>
+                  <p className={`${contentClasses}`}>{item}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

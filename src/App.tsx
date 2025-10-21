@@ -35,9 +35,9 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen overflow-x-hidden flex flex-col ${themeClasses}`}>
+    <div className={`h-screen overflow-hidden flex flex-col ${themeClasses}`}>
       <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      <main className="flex-grow flex">
+      <main className="flex-grow overflow-y-auto">
         {renderPage()}
       </main>
     </div>
