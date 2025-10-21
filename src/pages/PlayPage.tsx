@@ -1,10 +1,11 @@
-
 import React, { useState } from 'react';
 import { QUIZ_QUESTIONS } from '@/constants';
+import { useTheme } from '@/context/ThemeContext';
 
 type GameState = 'start' | 'playing' | 'finished';
 
 const PlayPage: React.FC = () => {
+  const { theme } = useTheme();
   const [gameState, setGameState] = useState<GameState>('start');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -44,10 +45,22 @@ const PlayPage: React.FC = () => {
   
   const getBadge = () => {
       const percentage = (score / QUIZ_QUESTIONS.length) * 100;
-      if (percentage < 50) return { title: 'Cyber Rookie', color: 'text-gray-400' };
-      if (percentage < 80) return { title: 'Scam Slayer', color: 'text-cyan-400' };
-      return { title: 'Phish Terminator 🏅', color: 'text-yellow-400' };
+      if (percentage < 50) return { title: 'Cyber Rookie', color: theme === 'dark' ? 'text-gray-400' : 'text-gray-600' };
+      if (percentage < 80) return { title: 'Scam Slayer', color: theme === 'dark' ? 'text-cyan-400' : 'text-blue-600' };
+      return { title: 'Phish Terminator 🏅', color: theme === 'dark' ? 'text-yellow-400' : 'text-yellow-700' };
   }
+  
+  const containerClasses = theme === 'dark'
+    ? 'bg-gray-900/50 border border-purple-500/30'
+    : 'bg-white border border-blue-300/50 shadow-lg';
+    
+  const questionBoxClasses = theme === 'dark'
+    ? 'bg-black/30 border border-cyan-700/50 text-gray-200'
+    : 'bg-gray-100 border border-gray-300 text-gray-800';
+    
+  const startButtonClasses = theme === 'dark'
+    ? 'bg-cyan-500 text-black hover:bg-cyan-400'
+    : 'bg-blue-600 text-white hover:bg-blue-500';
 
   return (
     <div className="container mx-auto px-6 py-16 flex flex-col items-center">
@@ -56,12 +69,12 @@ const PlayPage: React.FC = () => {
         <p className="text-xl text-gray-400 mt-4">Test your skills and spot the phish!</p>
       </div>
 
-      <div className="w-full max-w-3xl min-h-[400px] bg-gray-900/50 border border-purple-500/30 rounded-lg p-8 flex flex-col justify-center items-center">
+      <div className={`w-full max-w-3xl min-h-[400px] rounded-lg p-8 flex flex-col justify-center items-center ${containerClasses}`}>
         {gameState === 'start' && (
           <div className="text-center animate-fade-in">
-            <h2 className="text-3xl font-orbitron mb-4">Spot the Phish</h2>
-            <p className="text-gray-300 mb-8">You will be shown {QUIZ_QUESTIONS.length} messages. Decide if they are legitimate or a phishing attempt.</p>
-            <button onClick={handleStart} className="px-8 py-3 bg-cyan-500 text-black font-bold rounded-md hover:bg-cyan-400 transition-colors">Start Game</button>
+            <h2 className={`text-3xl font-orbitron mb-4 ${theme === 'dark' ? 'text-cyan-300' : 'text-gray-800'}`}>Spot the Phish</h2>
+            <p className={`mb-8 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>You will be shown {QUIZ_QUESTIONS.length} messages. Decide if they are legitimate or a phishing attempt.</p>
+            <button onClick={handleStart} className={`px-8 py-3 font-bold rounded-md transition-colors ${startButtonClasses}`}>Start Game</button>
           </div>
         )}
 
@@ -71,8 +84,8 @@ const PlayPage: React.FC = () => {
               <p className="font-orbitron text-lg">Question {currentQuestionIndex + 1}/{QUIZ_QUESTIONS.length}</p>
               <p className="font-orbitron text-lg">Score: {score}</p>
             </div>
-            <div className="bg-black/30 p-6 rounded-md border border-cyan-700/50 mb-6">
-              <pre className="text-left whitespace-pre-wrap font-sans text-gray-200">{question.content}</pre>
+            <div className={`p-6 rounded-md mb-6 ${questionBoxClasses}`}>
+              <pre className="text-left whitespace-pre-wrap font-sans">{question.content}</pre>
             </div>
             {!feedback ? (
               <div className="flex justify-center gap-6">
@@ -90,13 +103,13 @@ const PlayPage: React.FC = () => {
 
         {gameState === 'finished' && (
           <div className="text-center animate-fade-in">
-            <h2 className="text-3xl font-orbitron mb-4">Game Over!</h2>
-            <p className="text-2xl text-gray-200 mb-4">Your final score is: {score} / {QUIZ_QUESTIONS.length}</p>
+            <h2 className={`text-3xl font-orbitron mb-4 ${theme === 'dark' ? 'text-cyan-300' : 'text-gray-800'}`}>Game Over!</h2>
+            <p className={`text-2xl mb-4 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Your final score is: {score} / {QUIZ_QUESTIONS.length}</p>
             <div className="mb-8">
               <p className="text-xl">Your Rank:</p>
               <p className={`text-4xl font-orbitron font-bold ${getBadge().color}`}>{getBadge().title}</p>
             </div>
-            <button onClick={restartGame} className="px-8 py-3 bg-cyan-500 text-black font-bold rounded-md hover:bg-cyan-400 transition-colors">Play Again</button>
+            <button onClick={restartGame} className={`px-8 py-3 font-bold rounded-md transition-colors ${startButtonClasses}`}>Play Again</button>
           </div>
         )}
       </div>

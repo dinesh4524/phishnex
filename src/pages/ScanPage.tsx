@@ -1,12 +1,13 @@
-
 import React, { useState, useCallback } from 'react';
 import { Type } from "@google/genai";
 import { ai } from '@/utils/gemini';
 import type { ScanResult } from '@/types';
+import { useTheme } from '@/context/ThemeContext';
 
 type ScanMode = 'url' | 'email' | 'message';
 
 const ScanPage: React.FC = () => {
+  const { theme } = useTheme();
   const [input, setInput] = useState('');
   const [scanMode, setScanMode] = useState<ScanMode>('url');
   const [isLoading, setIsLoading] = useState(false);
@@ -58,13 +59,6 @@ const ScanPage: React.FC = () => {
       const parsedResult: ScanResult = JSON.parse(jsonText);
       setResult(parsedResult);
       
-      if (parsedResult.verdict === 'Phishing') {
-        if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance("Alert! High probability of phishing detected.");
-            window.speechSynthesis.speak(utterance);
-        }
-      }
-
     } catch (e: any) {
       console.error(e);
       setError('Failed to analyze the content. The AI may be offline or an error occurred. Please try again.');
@@ -88,29 +82,58 @@ const ScanPage: React.FC = () => {
       default: return 'text-gray-400 border-gray-400';
     }
   };
+  
+  const inputClasses = theme === 'dark'
+    ? 'bg-gray-900/50 border border-purple-500/50 text-white placeholder-gray-500 focus:ring-purple-500'
+    : 'bg-white border border-blue-300/50 text-gray-900 placeholder-gray-500 focus:ring-blue-500';
+    
+  const containerClasses = theme === 'dark'
+    ? 'bg-black/20 border border-cyan-500/20'
+    : 'bg-white/50 border border-blue-300/50 shadow-xl';
+    
+  const resultContainerClasses = theme === 'dark'
+    ? 'bg-gray-900/50 border border-purple-500/30'
+    : 'bg-white border border-purple-300/50 shadow-xl';
+    
+  const buttonActiveClasses = theme === 'dark'
+    ? 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(0,255,255,0.5)]'
+    : 'bg-blue-600 text-white shadow-[0_0_15px_rgba(0,100,255,0.5)]';
+    
+  const buttonInactiveClasses = theme === 'dark'
+    ? 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+    : 'bg-gray-300 text-gray-700 hover:bg-gray-400';
+    
+  const scanButtonClasses = theme === 'dark'
+    ? 'bg-cyan-500 text-black hover:bg-cyan-400 disabled:bg-gray-600'
+    : 'bg-blue-600 text-white hover:bg-blue-500 disabled:bg-gray-400';
+    
+  const reasonTitleClasses = theme === 'dark' ? 'text-cyan-300 border-cyan-500/30' : 'text-blue-600 border-blue-300';
+  const tipTitleClasses = theme === 'dark' ? 'text-purple-400 border-purple-500/30' : 'text-purple-700 border-purple-300';
+  const listTextClasses = theme === 'dark' ? 'text-gray-300' : 'text-gray-700';
+
 
   return (
     <div className="container mx-auto px-6 py-16 flex flex-col items-center">
       <div className="text-center mb-8 w-full max-w-3xl">
         <h1 className="text-5xl font-orbitron font-bold text-white cyber-glow">AI Scan Zone</h1>
-        <p className="text-xl text-gray-400 mt-4">Enter a URL, email, or message to check for threats.</p>
+        <p className={`text-xl mt-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Enter a URL, email, or message to check for threats.</p>
       </div>
 
-      <div className="w-full max-w-3xl bg-black/20 p-8 rounded-lg border border-cyan-500/20">
+      <div className={`w-full max-w-3xl p-8 rounded-lg ${containerClasses}`}>
         <div className="flex justify-center mb-6 space-x-2 sm:space-x-4">
           <button 
             onClick={() => handleModeChange('url')}
-            className={`px-4 py-2 text-sm sm:px-6 sm:text-base font-orbitron rounded-md transition-all duration-300 ${scanMode === 'url' ? 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(0,255,255,0.5)]' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>
+            className={`px-4 py-2 text-sm sm:px-6 sm:text-base font-orbitron rounded-md transition-all duration-300 ${scanMode === 'url' ? buttonActiveClasses : buttonInactiveClasses}`}>
             URL
           </button>
           <button 
             onClick={() => handleModeChange('email')}
-            className={`px-4 py-2 text-sm sm:px-6 sm:text-base font-orbitron rounded-md transition-all duration-300 ${scanMode === 'email' ? 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(0,255,255,0.5)]' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>
+            className={`px-4 py-2 text-sm sm:px-6 sm:text-base font-orbitron rounded-md transition-all duration-300 ${scanMode === 'email' ? buttonActiveClasses : buttonInactiveClasses}`}>
             Email
           </button>
           <button 
             onClick={() => handleModeChange('message')}
-            className={`px-4 py-2 text-sm sm:px-6 sm:text-base font-orbitron rounded-md transition-all duration-300 ${scanMode === 'message' ? 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(0,255,255,0.5)]' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>
+            className={`px-4 py-2 text-sm sm:px-6 sm:text-base font-orbitron rounded-md transition-all duration-300 ${scanMode === 'message' ? buttonActiveClasses : buttonInactiveClasses}`}>
             Message
           </button>
         </div>
@@ -121,7 +144,7 @@ const ScanPage: React.FC = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="e.g., http://secure-login-update.com"
-              className="flex-grow bg-gray-900/50 border border-purple-500/50 rounded-md px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className={`flex-grow rounded-md px-4 py-3 focus:outline-none focus:ring-2 ${inputClasses}`}
               disabled={isLoading}
             />
           ) : (
@@ -133,14 +156,14 @@ const ScanPage: React.FC = () => {
                   ? "Paste the full email content here..." 
                   : "Paste the SMS or instant message content here..."
               }
-              className="flex-grow bg-gray-900/50 border border-purple-500/50 rounded-md px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 h-32 resize-none"
+              className={`flex-grow rounded-md px-4 py-3 focus:outline-none focus:ring-2 h-32 resize-none ${inputClasses}`}
               disabled={isLoading}
             />
           )}
           <button
             onClick={analyzeContent}
             disabled={isLoading || !input}
-            className="px-8 py-3 bg-cyan-500 text-black font-bold rounded-md hover:bg-cyan-400 transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center justify-center"
+            className={`px-8 py-3 font-bold rounded-md transition-colors flex items-center justify-center ${scanButtonClasses}`}
           >
             {isLoading ? 'Scanning...' : 'Scan'}
           </button>
@@ -167,24 +190,24 @@ const ScanPage: React.FC = () => {
       )}
 
       {result && (
-        <div className="w-full max-w-3xl mt-8 p-8 bg-gray-900/50 border border-purple-500/30 rounded-lg animate-fade-in-up">
-          <h2 className="text-3xl font-orbitron mb-6 text-center">AI Analysis Report</h2>
+        <div className={`w-full max-w-3xl mt-8 p-8 rounded-lg animate-fade-in-up ${resultContainerClasses}`}>
+          <h2 className={`text-3xl font-orbitron mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>AI Analysis Report</h2>
           <div className="text-center mb-6">
             <span className={`text-4xl font-bold px-6 py-2 border-2 rounded-lg ${getVerdictColor(result.verdict)}`}>{result.verdict.toUpperCase()}</span>
-            <p className="text-lg text-gray-300 mt-4">Confidence: {result.confidence}%</p>
+            <p className={`text-lg mt-4 ${listTextClasses}`}>Confidence: {result.confidence}%</p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-xl font-bold text-cyan-300 border-b border-cyan-500/30 pb-2 mb-3">Detection Reasons</h3>
+              <h3 className={`text-xl font-bold border-b pb-2 mb-3 ${reasonTitleClasses}`}>Detection Reasons</h3>
               <ul className="space-y-2">
-                {result.reasons.map((reason, i) => <li key={i} className="text-gray-300 list-disc list-inside">{reason}</li>)}
+                {result.reasons.map((reason, i) => <li key={i} className={`list-disc list-inside ${listTextClasses}`}>{reason}</li>)}
               </ul>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-purple-400 border-b border-purple-500/30 pb-2 mb-3">Security Tips</h3>
+              <h3 className={`text-xl font-bold border-b pb-2 mb-3 ${tipTitleClasses}`}>Security Tips</h3>
               <ul className="space-y-2">
-                {result.tips.map((tip, i) => <li key={i} className="text-gray-300 list-disc list-inside">{tip}</li>)}
+                {result.tips.map((tip, i) => <li key={i} className={`list-disc list-inside ${listTextClasses}`}>{tip}</li>)}
               </ul>
             </div>
           </div>

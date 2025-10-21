@@ -34,7 +34,8 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: #010413;
+        /* Use CSS variable for background, which GlitchButton will set dynamically */
+        background: var(--glitch-bg, #010413); 
         overflow: hidden;
         clip: rect(0, 0, 0, 0);
       }
@@ -72,7 +73,8 @@
     "@google/genai": "https://aistudiocdn.com/@google/genai@^1.25.0",
     "vite": "https://aistudiocdn.com/vite@^7.1.11",
     "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.0.4",
-    "path": "https://aistudiocdn.com/path@^0.12.7"
+    "path": "https://aistudiocdn.com/path@^0.12.7",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.408.0"
   }
 }
 </script>
