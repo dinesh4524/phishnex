@@ -1,4 +1,3 @@
-
 # PhishShield: The Future of Safe Surfing
 
 > 🔐 “Spot. Stop. Secure — One Click at a Time.”
@@ -86,4 +85,4 @@ The codebase is organized logically to ensure maintainability and scalability. F
 
 ## 🌐 Live Demo
 
-This project is currently running in a live, sandboxed development environment. You can interact with all the features directly on this page without any local setup. For instructions on how to run it on your own machine, please refer to the `GUIDE.md` file.
+A live version of this application is available for you to interact with. All features are fully functional. For instructions on how to run the project on your own machine, please refer to the `GUIDE.md` file.
