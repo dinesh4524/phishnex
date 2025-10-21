@@ -137,7 +137,7 @@ Your data could be exposed to anyone on the same network.
         'Use a VPN: A Virtual Private Network (VPN) encrypts your internet traffic, making it unreadable to eavesdroppers.',
         'Check for HTTPS: Only enter sensitive information on websites that start with "https" (the \'s\' stands for secure).',
         'Avoid Critical Tasks: Don\'t do online banking or access other sensitive accounts on public networks if you can avoid it.',
-        '"Forget" the Network: After you\'re done, tell your device to forget the network so it doesn't reconnect automatically.',
+        '"Forget" the Network: After you\'re done, tell your device to forget the network so it doesn\'t reconnect automatically.',
       ],
     },
   },
