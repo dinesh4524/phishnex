@@ -1,9 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Fix: Per coding guidelines, the API key must be obtained exclusively from `process.env.API_KEY`.
-// The logic for falling back to `import.meta.env` has been removed to resolve the TypeScript error and align with guidelines.
+// The API key is injected via Vite's define configuration from VITE_GEMINI_API_KEY in .env.
 if (!process.env.API_KEY) {
-  throw new Error("API key not found. Please set the API_KEY environment variable.");
+  throw new Error("API key not found. Please set the VITE_GEMINI_API_KEY environment variable in your .env file.");
 }
 
 export const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
