@@ -5,7 +5,7 @@ import LearnPage from '@/pages/LearnPage';
 import ScanPage from '@/pages/ScanPage';
 import PlayPage from '@/pages/PlayPage';
 import ToolsPage from '@/pages/ToolsPage';
-import { useTheme } from '@/context/ThemeContext';
+import { useTheme } from './context/ThemeContext';
 
 export type Page = 'home' | 'learn' | 'scan' | 'play' | 'tools';
 
