@@ -20,7 +20,7 @@ const CyberCard: React.FC<{ card: LearnCardData }> = ({ card }) => {
   const bulletClasses = theme === 'dark' ? 'text-purple-400' : 'text-purple-700';
 
   return (
-    <div className="group w-full max-w-lg h-80 [perspective:1000px]">
+    <div className="group w-full max-w-md h-80 [perspective:1000px]">
       <div className="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
         {/* Front */}
         <div className={`absolute inset-0 rounded-xl p-6 flex flex-col justify-center ${frontClasses}`}>
@@ -56,7 +56,7 @@ const LearnPage: React.FC = () => {
         <h1 className="text-5xl font-orbitron font-bold text-white cyber-glow">Interactive Awareness Zone</h1>
         <p className={`text-xl mt-4 ${subtitleClasses}`}>Hover over the cards to reveal why they are scams. Learn the signs.</p>
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 place-items-center">
+      <div className="flex flex-wrap justify-center gap-12">
         {LEARN_CARDS.map(card => (
           <CyberCard key={card.id} card={card} />
         ))}

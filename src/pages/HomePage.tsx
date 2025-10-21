@@ -25,7 +25,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
   const subtitleClasses = theme === 'dark' ? 'text-gray-300' : 'text-gray-600';
 
   return (
-    <div className="container mx-auto px-6 text-center flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
+    <div className="container mx-auto px-6 text-center flex flex-col items-center justify-center w-full">
       <div 
         className="relative w-48 h-48 mb-8 transition-all duration-500 transform"
         onMouseEnter={() => setIsHovered(true)}
