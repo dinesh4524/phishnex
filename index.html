@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PhishShield: The Future of Safe Surfing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #010413;
+        color: #e0e0e0;
+      }
+      .font-orbitron {
+        font-family: 'Orbitron', sans-serif;
+      }
+      .cyber-grid {
+        background-image:
+          linear-gradient(to right, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      .cyber-glow {
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.7), 0 0 10px rgba(0, 255, 255, 0.5), 0 0 15px rgba(143, 0, 255, 0.5);
+      }
+      .btn-glitch::before,
+      .btn-glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #010413;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+      }
+      .btn-glitch:hover::before {
+        left: 2px;
+        text-shadow: -1px 0 #8f00ff;
+        animation: glitch-anim-1 2s infinite linear alternate-reverse;
+      }
+      .btn-glitch:hover::after {
+        left: -2px;
+        text-shadow: -1px 0 #00ffff, 1px 0 #ff00c1;
+        animation: glitch-anim-2 2s infinite linear alternate-reverse;
+      }
+      @keyframes glitch-anim-1 {
+        0% { clip: rect(42px, 9999px, 44px, 0); }
+        5% { clip: rect(12px, 9999px, 60px, 0); }
+        10% { clip: rect(40px, 9999px, 40px, 0); }
+        /* ... add more steps */
+        100% { clip: rect(50px, 9999px, 10px, 0); }
+      }
+      @keyframes glitch-anim-2 {
+        0% { clip: rect(2px, 9999px, 98px, 0); }
+        5% { clip: rect(94px, 9999px, 98px, 0); }
+        10% { clip: rect(40px, 9999px, 40px, 0); }
+        /* ... add more steps */
+        100% { clip: rect(10px, 9999px, 95px, 0); }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.25.0",
+    "vite": "https://aistudiocdn.com/vite@^7.1.11",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.0.4",
+    "path": "https://aistudiocdn.com/path@^0.12.7"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
