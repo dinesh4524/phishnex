@@ -86,3 +86,9 @@ The codebase is organized logically to ensure maintainability and scalability. F
 ## 🌐 Live Demo
 
 A live version of this application is available for you to interact with. All features are fully functional. For instructions on how to run the project on your own machine, please refer to the `GUIDE.md` file.
+
+---
+
+## © Copyright
+
+Copyright (c) 2024 Dinesh Haritha Vijay Reddy. All rights reserved.
