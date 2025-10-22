@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import { Link, Brain, CheckCircle, Quote, Zap } from 'lucide-react';
+import { Link, Brain, CheckCircle, Zap } from 'lucide-react';
 import RandomTip from '@/components/RandomTip';
 
 const ProcessStep: React.FC<{ step: number, title: string, description: string, icon: React.ReactNode }> = ({ step, title, description, icon }) => {
@@ -31,8 +31,6 @@ const HowItWorksPage: React.FC = () => {
   
   const subtitleClasses = theme === 'dark' ? 'text-gray-400' : 'text-gray-600';
   const sectionTitleClasses = theme === 'dark' ? 'text-cyan-300 border-b border-cyan-500/30' : 'text-indigo-600 border-b border-indigo-300';
-  const quoteClasses = theme === 'dark' ? 'bg-gray-900/50 border-l-4 border-purple-500 text-gray-300' : 'bg-gray-100 border-l-4 border-purple-600 text-gray-700';
-  const quoteAuthorClasses = theme === 'dark' ? 'text-purple-400' : 'text-purple-700';
 
   return (
     <div className="container mx-auto px-6 py-16">
@@ -103,25 +101,6 @@ const HowItWorksPage: React.FC = () => {
             <p className="text-sm text-gray-500">
               [Diagram showing Input → Gemini Analysis → JSON Output → Verdict Display]
             </p>
-          </div>
-        </div>
-      </div>
-
-      {/* 3. Testimonials/Quotes */}
-      <div className="max-w-4xl mx-auto">
-        <h2 className={`text-3xl font-orbitron font-bold pb-3 mb-8 text-center ${sectionTitleClasses}`}>
-          Community Awareness
-        </h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className={`p-6 rounded-lg ${quoteClasses}`}>
-            <Quote className={`w-8 h-8 mb-3 ${quoteAuthorClasses}`} />
-            <p className="italic mb-3">"I was about to click a link from my 'bank' until I ran it through the AI Scan Zone. PhishNex caught the scam in seconds. It's like having a security expert on call 24/7."</p>
-            <p className={`font-bold text-right ${quoteAuthorClasses}`}>— Grateful User</p>
-          </div>
-          <div className={`p-6 rounded-lg ${quoteClasses}`}>
-            <Quote className={`w-8 h-8 mb-3 ${quoteAuthorClasses}`} />
-            <p className="italic mb-3">"The Awareness Arcade is surprisingly fun. After a few rounds of the 'Spot the Phish' game, I'm much more confident in identifying suspicious emails at a glance."</p>
-            <p className={`font-bold text-right ${quoteAuthorClasses}`}>— Empowered Student</p>
           </div>
         </div>
       </div>
