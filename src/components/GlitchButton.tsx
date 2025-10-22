@@ -11,17 +11,15 @@ const GlitchButton: React.FC<GlitchButtonProps> = ({ onClick, children, icon }) 
   const { theme } = useTheme();
   
   const buttonClasses = theme === 'dark'
-    ? 'border-cyan-400 hover:bg-cyan-400/10 focus:ring-cyan-500/50 text-white'
-    : 'border-blue-600 text-gray-900 hover:bg-blue-600/10 focus:ring-blue-500/50';
+    ? 'border-cyan-400 text-white hover:bg-cyan-400/10 hover:shadow-[0_0_20px_rgba(0,255,255,0.5)]'
+    : 'border-blue-600 text-gray-900 hover:bg-blue-600/10 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]';
     
-  const glitchBackground = theme === 'dark' ? '#010413' : '#f3f4f6'; // Dark background: #010413, Light background: gray-100 (#f3f4f6)
+  // Removed style prop as custom CSS variables are no longer needed for this effect
 
   return (
     <button
       onClick={onClick}
-      data-text={children}
-      className={`btn-glitch relative inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-bold tracking-widest uppercase border-2 bg-transparent cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 ${buttonClasses}`}
-      style={{ '--glitch-bg': glitchBackground } as React.CSSProperties}
+      className={`btn-glitch relative inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-bold tracking-widest uppercase border-2 bg-transparent cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-current ${buttonClasses}`}
     >
       {icon}
       <span>{children}</span>

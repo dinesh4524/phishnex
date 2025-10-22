@@ -27,41 +27,12 @@
         text-shadow: 0 0 5px rgba(0, 255, 255, 0.7), 0 0 10px rgba(0, 255, 255, 0.5), 0 0 15px rgba(143, 0, 255, 0.5);
       }
       
-      /* Refined Glitch Button CSS */
+      /* Refined Glitch Button CSS - Now just a base class */
       .btn-glitch {
         position: relative;
         transition: all 0.3s ease-in-out;
       }
-      .btn-glitch::before,
-      .btn-glitch::after {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--glitch-bg, #010413); 
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        transition: all 0.3s ease-in-out;
-      }
-      
-      .btn-glitch:hover {
-        box-shadow: 0 0 15px var(--glitch-shadow-color, rgba(0, 255, 255, 0.5));
-        transform: translateY(-2px);
-      }
-      
-      .btn-glitch:hover::before {
-        left: 1px;
-        text-shadow: -1px 0 #8f00ff;
-        clip: rect(42px, 9999px, 44px, 0);
-      }
-      .btn-glitch:hover::after {
-        left: -1px;
-        text-shadow: 1px 0 #00ffff;
-        clip: rect(10px, 9999px, 12px, 0);
-      }
-      /* End Refined Glitch Button CSS */
+      /* Removing ::before and ::after styles */
       
       @keyframes scanner {
         0% { transform: translateX(-100%); }

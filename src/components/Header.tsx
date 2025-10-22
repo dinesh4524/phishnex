@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
       <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
         <div 
           className="flex items-center space-x-2 cursor-pointer"
-          onClick={() => handleNavClick('home')}
+          onClick={() => handleNavClick('home')} // Always navigate to home on logo click
         >
           <ShieldCheck className={`w-8 h-8 ${logoClasses}`} />
           <h1 className={`text-2xl font-orbitron font-bold ${theme === 'dark' ? 'text-white cyber-glow' : 'text-gray-900'}`}>PhishShield</h1>

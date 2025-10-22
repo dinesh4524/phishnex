@@ -35,7 +35,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
         <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
           <div className="w-24 h-24 rounded-full border-2 border-purple-500 animate-spin-slow"></div>
           <div className={`absolute w-20 h-20 rounded-full border-2 ${eyeClasses} animate-ping`}></div>
-          <p className={`absolute text-sm font-orbitron ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>ANALYZING</p>
+          <p className={`absolute text-sm font-orbitron ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>PROTECTING</p>
         </div>
       </div>
       
