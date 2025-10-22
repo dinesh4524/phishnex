@@ -7,6 +7,7 @@ import { Swords } from '@/components/icons/Swords';
 import { Wrench } from '@/components/icons/Wrench';
 import { useTheme } from '@/context/ThemeContext';
 import ThemeToggle from '@/components/ThemeToggle';
+import { HelpCircle } from 'lucide-react'; // New Icon
 
 interface HeaderProps {
   currentPage: Page;
@@ -22,6 +23,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
     { id: 'learn', label: 'Learn', icon: <BookOpen className="w-5 h-5 mr-2"/> },
     { id: 'play', label: 'Play Zone', icon: <Swords className="w-5 h-5 mr-2"/> },
     { id: 'tools', label: 'Cyber Tools', icon: <Wrench className="w-5 h-5 mr-2"/> },
+    { id: 'howitworks', label: 'How It Works', icon: <HelpCircle className="w-5 h-5 mr-2"/> }, // New Item
   ];
 
   const handleNavClick = (page: Page) => {
