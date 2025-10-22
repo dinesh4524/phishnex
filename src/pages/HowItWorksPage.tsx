@@ -1,4 +1,3 @@
-' with '→' in placeholder text.">
 import React from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { Link, Brain, CheckCircle, Quote, Zap } from 'lucide-react';
