@@ -1,11 +1,10 @@
+# PhishNex: User & Developer Guide
 
-# PhishShield: User & Developer Guide
-
-This document provides a comprehensive guide for both end-users interacting with the PhishShield application and developers looking to run, customize, or contribute to the project.
+This document provides a comprehensive guide for both end-users interacting with the PhishNex application and developers looking to run, customize, or contribute to the project.
 
 ---
 
-## 👤 For Users: How to Use PhishShield
+## 👤 For Users: How to Use PhishNex
 
 Welcome, Agent! This guide will walk you through your new suite of cyber defense tools.
 
@@ -44,7 +43,7 @@ Sharpen your instincts by studying the enemy's tactics and core security princip
 
 ## 👨‍💻 For Developers: How to Run Locally
 
-Follow these simple steps to get the PhishShield project running on your machine. The project is built with Vite, ensuring a fast and modern development experience.
+Follow these simple steps to get the PhishNex project running on your machine. The project is built with Vite, ensuring a fast and modern development experience.
 
 ### 1. Prerequisites
 

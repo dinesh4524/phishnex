@@ -46,14 +46,14 @@ const PlayPage: React.FC = () => {
   const getBadge = () => {
       const percentage = (score / QUIZ_QUESTIONS.length) * 100;
       if (percentage < 50) return { title: 'Cyber Rookie', color: theme === 'dark' ? 'text-gray-400' : 'text-gray-600' };
-      if (percentage < 80) return { title: 'Scam Slayer', color: theme === 'dark' ? 'text-cyan-400' : 'text-blue-600' };
+      if (percentage < 80) return { title: 'Scam Slayer', color: theme === 'dark' ? 'text-cyan-400' : 'text-indigo-600' };
       return { title: 'Phish Terminator 🏅', color: theme === 'dark' ? 'text-yellow-400' : 'text-yellow-700' };
   }
   
   // Enhanced 3D classes
   const containerClasses = theme === 'dark'
     ? 'bg-gray-900/50 border border-purple-500/30 shadow-2xl shadow-purple-900/50'
-    : 'bg-white border border-blue-300/50 shadow-lg shadow-blue-200';
+    : 'bg-white border border-indigo-300/50 shadow-lg shadow-indigo-200';
     
   const questionBoxClasses = theme === 'dark'
     ? 'bg-black/30 border border-cyan-700/50 text-gray-200 shadow-inner shadow-cyan-900/50'
@@ -61,7 +61,7 @@ const PlayPage: React.FC = () => {
     
   const startButtonClasses = theme === 'dark'
     ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-lg shadow-cyan-500/50'
-    : 'bg-blue-600 text-white hover:bg-blue-500 shadow-lg shadow-blue-500/50';
+    : 'bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-500/50';
     
   const phishButtonClasses = "px-10 py-4 bg-red-600 hover:bg-red-500 text-white font-bold rounded-md transition-colors shadow-lg shadow-red-600/50";
   const legitButtonClasses = "px-10 py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-md transition-colors shadow-lg shadow-green-600/50";
@@ -77,7 +77,7 @@ const PlayPage: React.FC = () => {
       <div className={`w-full max-w-3xl min-h-[400px] rounded-lg p-8 flex flex-col justify-center items-center ${containerClasses}`}>
         {gameState === 'start' && (
           <div className="text-center animate-fade-in">
-            <h2 className={`text-3xl font-orbitron mb-4 ${theme === 'dark' ? 'text-cyan-300' : 'text-gray-800'}`}>Spot the Phish</h2>
+            <h2 className={`text-3xl font-orbitron mb-4 ${theme === 'dark' ? 'text-cyan-300' : 'text-indigo-600'}`}>Spot the Phish</h2>
             <p className={`mb-8 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>You will be shown {QUIZ_QUESTIONS.length} messages. Decide if they are legitimate or a phishing attempt.</p>
             <button onClick={handleStart} className={`px-8 py-3 font-bold rounded-md transition-colors ${startButtonClasses}`}>Start Game</button>
           </div>
@@ -108,7 +108,7 @@ const PlayPage: React.FC = () => {
 
         {gameState === 'finished' && (
           <div className="text-center animate-fade-in">
-            <h2 className={`text-3xl font-orbitron mb-4 ${theme === 'dark' ? 'text-cyan-300' : 'text-gray-800'}`}>Game Over!</h2>
+            <h2 className={`text-3xl font-orbitron mb-4 ${theme === 'dark' ? 'text-cyan-300' : 'text-indigo-600'}`}>Game Over!</h2>
             <p className={`text-2xl mb-4 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Your final score is: {score} / {QUIZ_QUESTIONS.length}</p>
             <div className="mb-8">
               <p className="text-xl">Your Rank:</p>

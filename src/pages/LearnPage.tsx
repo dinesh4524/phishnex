@@ -9,13 +9,13 @@ const CyberCard: React.FC<{ card: LearnCardData }> = ({ card }) => {
   
   const frontClasses = theme === 'dark'
     ? 'bg-gray-800/20 backdrop-blur-sm border border-cyan-500/30'
-    : 'bg-white/80 backdrop-blur-sm border border-blue-300/50 text-gray-900';
+    : 'bg-white/80 backdrop-blur-sm border border-indigo-300/50 text-gray-900';
     
   const backClasses = theme === 'dark'
     ? 'bg-gray-900/80 backdrop-blur-md border border-purple-500/50'
     : 'bg-gray-100/90 backdrop-blur-md border border-purple-500/50 text-gray-900';
     
-  const frontTitleClasses = theme === 'dark' ? 'text-cyan-300' : 'text-blue-600';
+  const frontTitleClasses = theme === 'dark' ? 'text-cyan-300' : 'text-indigo-600';
   const backTitleClasses = theme === 'dark' ? 'text-purple-400' : 'text-purple-700';
   const contentClasses = theme === 'dark' ? 'text-gray-300' : 'text-gray-700';
   const bulletClasses = theme === 'dark' ? 'text-purple-400' : 'text-purple-700';

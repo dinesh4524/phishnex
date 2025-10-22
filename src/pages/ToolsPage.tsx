@@ -37,9 +37,9 @@ const PasswordStrengthMeter: React.FC = () => {
   // Enhanced 3D classes for input
   const inputClasses = theme === 'dark'
     ? 'bg-gray-900/50 border border-purple-500/50 text-white placeholder-gray-500 focus:ring-purple-500 shadow-inner shadow-purple-900/50'
-    : 'bg-white border border-blue-300/50 text-gray-900 placeholder-gray-500 focus:ring-blue-500 shadow-inner shadow-blue-100';
+    : 'bg-white border border-indigo-300/50 text-gray-900 placeholder-gray-500 focus:ring-indigo-500 shadow-inner shadow-indigo-100';
     
-  const titleClasses = theme === 'dark' ? 'text-cyan-300' : 'text-blue-600';
+  const titleClasses = theme === 'dark' ? 'text-cyan-300' : 'text-indigo-600';
 
   return (
     <div className="w-full max-w-lg">
@@ -74,7 +74,7 @@ const ToolsPage: React.FC = () => {
   // Enhanced 3D classes for container
   const containerClasses = theme === 'dark'
     ? 'bg-black/20 border border-cyan-500/20 shadow-2xl shadow-cyan-900/50'
-    : 'bg-white/50 border border-blue-300/50 shadow-xl shadow-blue-200';
+    : 'bg-white/50 border border-indigo-300/50 shadow-xl shadow-indigo-200';
     
   const subtitleClasses = theme === 'dark' ? 'text-gray-400' : 'text-gray-600';
 

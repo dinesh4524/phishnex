@@ -12,7 +12,7 @@ const GlitchButton: React.FC<GlitchButtonProps> = ({ onClick, children, icon }) 
   
   const buttonClasses = theme === 'dark'
     ? 'border-cyan-400 text-white hover:bg-cyan-400/10 hover:shadow-[0_0_25px_rgba(0,255,255,0.7)] hover:scale-[1.02]'
-    : 'border-blue-600 text-gray-900 hover:bg-blue-600/10 hover:shadow-[0_0_25px_rgba(59,130,246,0.7)] hover:scale-[1.02]';
+    : 'border-indigo-600 text-gray-900 hover:bg-indigo-600/10 hover:shadow-[0_0_25px_rgba(79,70,229,0.7)] hover:scale-[1.02]'; // indigo-600 shadow
     
   // The base class now includes the transition properties
   const baseClasses = 'btn-glitch relative inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-bold tracking-widest uppercase border-2 bg-transparent cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-current';

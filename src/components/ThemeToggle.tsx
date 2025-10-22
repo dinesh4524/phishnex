@@ -8,7 +8,7 @@ const ThemeToggle: React.FC = () => {
   // Classes for a professional, slightly 3D button look using shadows and borders
   const buttonClasses = theme === 'dark'
     ? 'text-cyan-400 hover:bg-cyan-900/50 border border-cyan-500/30 shadow-lg hover:shadow-cyan-500/30'
-    : 'text-blue-600 hover:bg-blue-100 border border-blue-300/50 shadow-md hover:shadow-blue-300/50';
+    : 'text-indigo-600 hover:bg-indigo-100 border border-indigo-300/50 shadow-md hover:shadow-indigo-300/50';
 
   return (
     <button

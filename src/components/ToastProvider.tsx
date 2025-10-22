@@ -25,8 +25,8 @@ const ToastProvider: React.FC = () => {
   const lightThemeStyle = {
     background: '#ffffff', // White background
     color: '#1f2937', // Dark text
-    border: '1px solid #3b82f6', // Blue border
-    boxShadow: '0 0 10px rgba(59, 130, 246, 0.3)', // Blue shadow
+    border: '1px solid #4f46e5', // Indigo-600 border
+    boxShadow: '0 0 10px rgba(79, 70, 229, 0.3)', // Indigo shadow
   };
 
   const toastOptions = {

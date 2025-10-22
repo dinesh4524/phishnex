@@ -40,7 +40,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
       </div>
       
       <h1 className={`text-5xl md:text-7xl font-orbitron font-bold mb-4 ${titleClasses} animate-fade-in-down`}>
-        PhishShield
+        PhishNex
       </h1>
       <p className={`text-xl md:text-2xl mb-12 animate-fade-in-up ${subtitleClasses}`} style={{ animationDelay: '0.5s' }}>
         Your Digital Shield Against Phishing & Online Scams

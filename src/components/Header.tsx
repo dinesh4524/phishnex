@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
     
   const logoClasses = theme === 'dark'
     ? 'text-cyan-400 cyber-glow'
-    : 'text-gray-800';
+    : 'text-indigo-600';
 
   return (
     <header className={`sticky top-0 z-50 ${headerClasses}`}>
@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
           onClick={() => handleNavClick('home')} // Always navigate to home on logo click
         >
           <ShieldCheck className={`w-8 h-8 ${logoClasses}`} />
-          <h1 className={`text-2xl font-orbitron font-bold ${theme === 'dark' ? 'text-white cyber-glow' : 'text-gray-900'}`}>PhishShield</h1>
+          <h1 className={`text-2xl font-orbitron font-bold ${theme === 'dark' ? 'text-white cyber-glow' : 'text-gray-900'}`}>PhishNex</h1>
         </div>
         <div className="flex items-center space-x-4">
           <ul className="hidden md:flex items-center space-x-6">
@@ -54,14 +54,14 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
                   onClick={() => handleNavClick(item.id)}
                   className={`flex items-center font-semibold text-lg transition-all duration-300 relative px-3 py-2 rounded-md ${
                     currentPage === item.id 
-                      ? theme === 'dark' ? 'text-cyan-400 bg-cyan-900/50' : 'text-blue-600 bg-blue-100'
-                      : theme === 'dark' ? 'text-gray-300 hover:text-cyan-400 hover:bg-cyan-900/30' : 'text-gray-600 hover:text-blue-600 hover:bg-gray-300'
+                      ? theme === 'dark' ? 'text-cyan-400 bg-cyan-900/50' : 'text-indigo-600 bg-indigo-100'
+                      : theme === 'dark' ? 'text-gray-300 hover:text-cyan-400 hover:bg-cyan-900/30' : 'text-gray-600 hover:text-indigo-600 hover:bg-gray-300'
                   }`}
                 >
                   {item.icon}
                   {item.label}
                   {currentPage === item.id && (
-                    <span className={`absolute -bottom-1 left-0 w-full h-0.5 rounded-full ${theme === 'dark' ? 'bg-cyan-400' : 'bg-blue-600'}`}></span>
+                    <span className={`absolute -bottom-1 left-0 w-full h-0.5 rounded-full ${theme === 'dark' ? 'bg-cyan-400' : 'bg-indigo-600'}`}></span>
                   )}
                 </button>
               </li>

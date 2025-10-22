@@ -1,4 +1,4 @@
-# PhishShield: The Future of Safe Surfing
+# PhishNex: The Future of Safe Surfing
 
 > 🔐 “Spot. Stop. Secure — One Click at a Time.”
 
@@ -6,17 +6,17 @@
 
 ## 🚀 Overview
 
-PhishShield is not just a tool; it's an interactive cyber defense simulator. Built with a futuristic, cyber-lab aesthetic, its mission is to educate and empower users to effectively identify, avoid, and report phishing attempts and online scams. By combining AI-powered analysis with gamified learning, PhishShield transforms cybersecurity awareness from a passive chore into an engaging and empowering experience.
+PhishNex is not just a tool; it's an interactive cyber defense simulator. Built with a futuristic, cyber-lab aesthetic, its mission is to educate and empower users to effectively identify, avoid, and report phishing attempts and online scams. By combining AI-powered analysis with gamified learning, PhishNex transforms cybersecurity awareness from a passive chore into an engaging and empowering experience.
 
 The interface is designed to be immersive, using a dark neon palette, glowing animations, and a cohesive design language that makes users feel like they are operators in a high-tech security operations center.
 
 ## ✨ Key Features
 
-PhishShield is divided into several core modules, each serving a unique purpose in the user's journey to becoming a "Phish Terminator."
+PhishNex is divided into several core modules, each serving a unique purpose in the user's journey to becoming a "Phish Terminator."
 
 ### 🤖 AI Scan Zone
 
-The heart of PhishShield's defensive capabilities. The AI Scan Zone leverages the power of the Google Gemini model to perform real-time threat analysis on user-submitted content.
+The heart of PhishNex's defensive capabilities. The AI Scan Zone leverages the power of the Google Gemini model to perform real-time threat analysis on user-submitted content.
 
 -   **Multi-Mode Analysis:** Users can switch between three distinct modes for targeted analysis:
     -   **URL Scan:** Analyzes web addresses for suspicious domains, SSL certificate issues, and deceptive structures.
@@ -54,7 +54,7 @@ A utility belt of essential security tools to help users in their daily digital 
 
 ## 🛠️ Tech Stack
 
-PhishShield is built with a modern, performant, and scalable frontend technology stack.
+PhishNex is built with a modern, performant, and scalable frontend technology stack.
 
 -   **Core Framework:** **React 19** with **Vite**
 -   **Language:** **TypeScript**
