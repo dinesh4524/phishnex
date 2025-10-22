@@ -26,6 +26,12 @@
       .cyber-glow {
         text-shadow: 0 0 5px rgba(0, 255, 255, 0.7), 0 0 10px rgba(0, 255, 255, 0.5), 0 0 15px rgba(143, 0, 255, 0.5);
       }
+      
+      /* Refined Glitch Button CSS */
+      .btn-glitch {
+        position: relative;
+        transition: all 0.3s ease-in-out;
+      }
       .btn-glitch::before,
       .btn-glitch::after {
         content: attr(data-text);
@@ -34,34 +40,35 @@
         left: 0;
         width: 100%;
         height: 100%;
-        /* Use CSS variable for background, which GlitchButton will set dynamically */
         background: var(--glitch-bg, #010413); 
         overflow: hidden;
         clip: rect(0, 0, 0, 0);
+        transition: all 0.3s ease-in-out;
       }
+      
+      .btn-glitch:hover {
+        box-shadow: 0 0 15px var(--glitch-shadow-color, rgba(0, 255, 255, 0.5));
+        transform: translateY(-2px);
+      }
+      
       .btn-glitch:hover::before {
-        left: 2px;
+        left: 1px;
         text-shadow: -1px 0 #8f00ff;
-        animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        clip: rect(42px, 9999px, 44px, 0);
       }
       .btn-glitch:hover::after {
-        left: -2px;
-        text-shadow: -1px 0 #00ffff, 1px 0 #ff00c1;
-        animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        left: -1px;
+        text-shadow: 1px 0 #00ffff;
+        clip: rect(10px, 9999px, 12px, 0);
       }
-      @keyframes glitch-anim-1 {
-        0% { clip: rect(42px, 9999px, 44px, 0); }
-        5% { clip: rect(12px, 9999px, 60px, 0); }
-        10% { clip: rect(40px, 9999px, 40px, 0); }
-        /* ... add more steps */
-        100% { clip: rect(50px, 9999px, 10px, 0); }
+      /* End Refined Glitch Button CSS */
+      
+      @keyframes scanner {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
       }
-      @keyframes glitch-anim-2 {
-        0% { clip: rect(2px, 9999px, 98px, 0); }
-        5% { clip: rect(94px, 9999px, 98px, 0); }
-        10% { clip: rect(40px, 9999px, 40px, 0); }
-        /* ... add more steps */
-        100% { clip: rect(10px, 9999px, 95px, 0); }
+      .animate-scanner {
+        animation: scanner 2s linear infinite;
       }
     </style>
   <script type="importmap">
@@ -74,7 +81,8 @@
     "vite": "https://aistudiocdn.com/vite@^7.1.11",
     "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.0.4",
     "path": "https://aistudiocdn.com/path@^0.12.7",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.408.0"
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.408.0",
+    "react-hot-toast": "https://aistudiocdn.com/react-hot-toast@^2.4.1"
   }
 }
 </script>

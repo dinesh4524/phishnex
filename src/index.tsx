@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { ThemeProvider } from './context/ThemeContext';
+import ToastProvider from './components/ToastProvider';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -12,6 +13,7 @@ const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
     <ThemeProvider>
+      <ToastProvider />
       <App />
     </ThemeProvider>
   </React.StrictMode>

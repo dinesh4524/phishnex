@@ -3,6 +3,7 @@ import { Type } from "@google/genai";
 import { ai } from '@/utils/gemini';
 import type { ScanResult } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
+import { showPhishingAlert } from '@/utils/toast';
 
 type ScanMode = 'url' | 'email' | 'message';
 
@@ -58,6 +59,13 @@ const ScanPage: React.FC = () => {
       const jsonText = response.text.trim();
       const parsedResult: ScanResult = JSON.parse(jsonText);
       setResult(parsedResult);
+      
+      // Show alert based on verdict
+      if (parsedResult.verdict !== 'Safe') {
+        showPhishingAlert(parsedResult.verdict as 'Suspicious' | 'Phishing');
+      } else {
+        showPhishingAlert('Safe' as any); // Cast to use the success toast
+      }
       
     } catch (e: any) {
       console.error(e);
