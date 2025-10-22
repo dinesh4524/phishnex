@@ -50,17 +50,22 @@ const PlayPage: React.FC = () => {
       return { title: 'Phish Terminator 🏅', color: theme === 'dark' ? 'text-yellow-400' : 'text-yellow-700' };
   }
   
+  // Enhanced 3D classes
   const containerClasses = theme === 'dark'
-    ? 'bg-gray-900/50 border border-purple-500/30'
-    : 'bg-white border border-blue-300/50 shadow-lg';
+    ? 'bg-gray-900/50 border border-purple-500/30 shadow-2xl shadow-purple-900/50'
+    : 'bg-white border border-blue-300/50 shadow-lg shadow-blue-200';
     
   const questionBoxClasses = theme === 'dark'
-    ? 'bg-black/30 border border-cyan-700/50 text-gray-200'
-    : 'bg-gray-100 border border-gray-300 text-gray-800';
+    ? 'bg-black/30 border border-cyan-700/50 text-gray-200 shadow-inner shadow-cyan-900/50'
+    : 'bg-gray-100 border border-gray-300 text-gray-800 shadow-inner shadow-gray-300';
     
   const startButtonClasses = theme === 'dark'
-    ? 'bg-cyan-500 text-black hover:bg-cyan-400'
-    : 'bg-blue-600 text-white hover:bg-blue-500';
+    ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-lg shadow-cyan-500/50'
+    : 'bg-blue-600 text-white hover:bg-blue-500 shadow-lg shadow-blue-500/50';
+    
+  const phishButtonClasses = "px-10 py-4 bg-red-600 hover:bg-red-500 text-white font-bold rounded-md transition-colors shadow-lg shadow-red-600/50";
+  const legitButtonClasses = "px-10 py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-md transition-colors shadow-lg shadow-green-600/50";
+
 
   return (
     <div className="container mx-auto px-6 py-16 flex flex-col items-center">
@@ -89,8 +94,8 @@ const PlayPage: React.FC = () => {
             </div>
             {!feedback ? (
               <div className="flex justify-center gap-6">
-                <button onClick={() => handleAnswer(true)} className="px-10 py-4 bg-red-600 hover:bg-red-500 text-white font-bold rounded-md transition-colors">Phishing</button>
-                <button onClick={() => handleAnswer(false)} className="px-10 py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-md transition-colors">Legitimate</button>
+                <button onClick={() => handleAnswer(true)} className={phishButtonClasses}>Phishing</button>
+                <button onClick={() => handleAnswer(false)} className={legitButtonClasses}>Legitimate</button>
               </div>
             ) : (
               <div className={`p-4 rounded-md text-center ${feedback.correct ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'}`}>

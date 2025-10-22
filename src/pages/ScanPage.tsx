@@ -91,29 +91,30 @@ const ScanPage: React.FC = () => {
     }
   };
   
+  // Enhanced 3D classes
   const inputClasses = theme === 'dark'
-    ? 'bg-gray-900/50 border border-purple-500/50 text-white placeholder-gray-500 focus:ring-purple-500'
-    : 'bg-white border border-blue-300/50 text-gray-900 placeholder-gray-500 focus:ring-blue-500';
+    ? 'bg-gray-900/50 border border-purple-500/50 text-white placeholder-gray-500 focus:ring-purple-500 shadow-inner shadow-purple-900/50'
+    : 'bg-white border border-blue-300/50 text-gray-900 placeholder-gray-500 focus:ring-blue-500 shadow-inner shadow-blue-100';
     
   const containerClasses = theme === 'dark'
-    ? 'bg-black/20 border border-cyan-500/20'
-    : 'bg-white/50 border border-blue-300/50 shadow-xl';
+    ? 'bg-black/20 border border-cyan-500/20 shadow-2xl shadow-cyan-900/50'
+    : 'bg-white/50 border border-blue-300/50 shadow-xl shadow-blue-200';
     
   const resultContainerClasses = theme === 'dark'
-    ? 'bg-gray-900/50 border border-purple-500/30'
-    : 'bg-white border border-purple-300/50 shadow-xl';
+    ? 'bg-gray-900/50 border border-purple-500/30 shadow-2xl shadow-purple-900/50'
+    : 'bg-white border border-purple-300/50 shadow-xl shadow-purple-200';
     
   const buttonActiveClasses = theme === 'dark'
-    ? 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(0,255,255,0.5)]'
-    : 'bg-blue-600 text-white shadow-[0_0_15px_rgba(0,100,255,0.5)]';
+    ? 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(0,255,255,0.5)] border border-cyan-300'
+    : 'bg-blue-600 text-white shadow-[0_0_15px_rgba(0,100,255,0.5)] border border-blue-400';
     
   const buttonInactiveClasses = theme === 'dark'
-    ? 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-    : 'bg-gray-300 text-gray-700 hover:bg-gray-400';
+    ? 'bg-gray-800 text-gray-400 hover:bg-gray-700 border border-gray-700'
+    : 'bg-gray-300 text-gray-700 hover:bg-gray-400 border border-gray-400';
     
   const scanButtonClasses = theme === 'dark'
-    ? 'bg-cyan-500 text-black hover:bg-cyan-400 disabled:bg-gray-600'
-    : 'bg-blue-600 text-white hover:bg-blue-500 disabled:bg-gray-400';
+    ? 'bg-cyan-500 text-black hover:bg-cyan-400 disabled:bg-gray-600 shadow-lg shadow-cyan-500/50'
+    : 'bg-blue-600 text-white hover:bg-blue-500 disabled:bg-gray-400 shadow-lg shadow-blue-500/50';
     
   const reasonTitleClasses = theme === 'dark' ? 'text-cyan-300 border-cyan-500/30' : 'text-blue-600 border-blue-300';
   const tipTitleClasses = theme === 'dark' ? 'text-purple-400 border-purple-500/30' : 'text-purple-700 border-purple-300';
