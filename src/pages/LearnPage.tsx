@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LEARN_CARDS } from '@/constants';
 import type { LearnCardData } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
 
 const CyberCard: React.FC<{ card: LearnCardData }> = ({ card }) => {
   const { theme } = useTheme();
+  const [isFlipped, setIsFlipped] = useState(false);
   
   const frontClasses = theme === 'dark'
     ? 'bg-gray-800/20 backdrop-blur-sm border border-cyan-500/30'
@@ -20,10 +21,13 @@ const CyberCard: React.FC<{ card: LearnCardData }> = ({ card }) => {
   const bulletClasses = theme === 'dark' ? 'text-purple-400' : 'text-purple-700';
 
   return (
-    <div className="group w-full max-w-md h-80 [perspective:1000px]">
-      <div className="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+    <div 
+      className="group w-full max-w-md h-80 [perspective:1000px] cursor-pointer"
+      onClick={() => setIsFlipped(!isFlipped)}
+    >
+      <div className={`relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}>
         {/* Front */}
-        <div className={`absolute inset-0 rounded-xl p-6 flex flex-col ${frontClasses}`}>
+        <div className={`absolute inset-0 rounded-xl p-6 flex flex-col [backface-visibility:hidden] ${frontClasses}`}>
           <h3 className={`text-2xl font-orbitron mb-4 flex-shrink-0 ${frontTitleClasses}`}>{card.front.title}</h3>
           <div className="overflow-y-auto flex-grow">
             <pre className={`text-sm text-left whitespace-pre-wrap font-sans ${contentClasses}`}>{card.front.content}</pre>
@@ -58,7 +62,7 @@ const LearnPage: React.FC = () => {
     <div className="container mx-auto px-6 py-16">
       <div className="text-center mb-12">
         <h1 className="text-5xl font-orbitron font-bold text-white cyber-glow">Interactive Awareness Zone</h1>
-        <p className={`text-xl mt-4 ${subtitleClasses}`}>Hover over the cards to reveal why they are scams. Learn the signs.</p>
+        <p className={`text-xl mt-4 ${subtitleClasses}`}>Click the cards to reveal why they are scams. Learn the signs.</p>
       </div>
       <div className="flex flex-wrap justify-center gap-12">
         {LEARN_CARDS.map(card => (

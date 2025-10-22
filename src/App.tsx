@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import HomePage from '@/pages/HomePage';
 import LearnPage from '@/pages/LearnPage';
 import ScanPage from '@/pages/ScanPage';
@@ -40,6 +41,7 @@ const App: React.FC = () => {
       <main className="flex-grow overflow-y-auto">
         {renderPage()}
       </main>
+      <Footer />
     </div>
   );
 };
