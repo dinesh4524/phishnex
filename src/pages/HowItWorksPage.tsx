@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import { Link, Brain, CheckCircle, Zap } from 'lucide-react';
+import { Link, Brain, CheckCircle, Zap, ClipboardPaste, Cpu, FileJson2, Terminal, ArrowRight } from 'lucide-react';
 import RandomTip from '@/components/RandomTip';
 
 const ProcessStep: React.FC<{ step: number, title: string, description: string, icon: React.ReactNode }> = ({ step, title, description, icon }) => {
@@ -96,11 +96,46 @@ const HowItWorksPage: React.FC = () => {
             </li>
           </ul>
           
-          <div className="mt-8 p-4 border border-dashed border-gray-500/50 rounded-lg text-center">
-            <p className="font-orbitron text-lg mb-2">Workflow Diagram Placeholder</p>
-            <p className="text-sm text-gray-500">
-              [Diagram showing Input → Content Analysis → JSON Output → Verdict Display]
-            </p>
+          <div className="mt-8 p-6 border border-cyan-500/20 rounded-lg">
+            <h4 className={`text-xl font-orbitron mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Scan Workflow</h4>
+            <div className="flex flex-col md:flex-row items-center justify-around space-y-4 md:space-y-0">
+              {/* Step 1: Input */}
+              <div className="flex flex-col items-center text-center w-32">
+                <ClipboardPaste className={`w-10 h-10 mb-2 ${theme === 'dark' ? 'text-cyan-400' : 'text-indigo-600'}`} />
+                <p className="font-semibold">User Input</p>
+                <p className="text-xs text-gray-500">URL, Email, or Message</p>
+              </div>
+
+              {/* Arrow */}
+              <ArrowRight className={`w-8 h-8 ${theme === 'dark' ? 'text-gray-600' : 'text-gray-400'} transform md:rotate-0 rotate-90`} />
+
+              {/* Step 2: Scan Engine */}
+              <div className="flex flex-col items-center text-center w-32">
+                <Cpu className={`w-10 h-10 mb-2 ${theme === 'dark' ? 'text-cyan-400' : 'text-indigo-600'}`} />
+                <p className="font-semibold">Scan Engine</p>
+                <p className="text-xs text-gray-500">Content Analysis</p>
+              </div>
+
+              {/* Arrow */}
+              <ArrowRight className={`w-8 h-8 ${theme === 'dark' ? 'text-gray-600' : 'text-gray-400'} transform md:rotate-0 rotate-90`} />
+
+              {/* Step 3: JSON */}
+              <div className="flex flex-col items-center text-center w-32">
+                <FileJson2 className={`w-10 h-10 mb-2 ${theme === 'dark' ? 'text-cyan-400' : 'text-indigo-600'}`} />
+                <p className="font-semibold">Structured Data</p>
+                <p className="text-xs text-gray-500">JSON Output</p>
+              </div>
+
+              {/* Arrow */}
+              <ArrowRight className={`w-8 h-8 ${theme === 'dark' ? 'text-gray-600' : 'text-gray-400'} transform md:rotate-0 rotate-90`} />
+
+              {/* Step 4: Verdict */}
+              <div className="flex flex-col items-center text-center w-32">
+                <Terminal className={`w-10 h-10 mb-2 ${theme === 'dark' ? 'text-cyan-400' : 'text-indigo-600'}`} />
+                <p className="font-semibold">UI Verdict</p>
+                <p className="text-xs text-gray-500">Report Display</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
