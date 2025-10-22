@@ -15,7 +15,7 @@ const App: React.FC = () => {
   const { theme } = useTheme();
 
   const themeClasses = theme === 'dark'
-    ? 'bg-[#010413] text-cyan-300 cyber-grid'
+    ? 'bg-gradient-to-br from-[#010413] via-[#050a20] to-[#010413] text-cyan-300'
     : 'bg-gray-100 text-gray-800';
 
   const renderPage = () => {
