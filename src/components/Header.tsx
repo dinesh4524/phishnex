@@ -6,6 +6,7 @@ import { ScanLine } from '@/components/icons/ScanLine';
 import { Swords } from '@/components/icons/Swords';
 import { Wrench } from '@/components/icons/Wrench';
 import { useTheme } from '@/context/ThemeContext';
+import ThemeToggle from '@/components/ThemeToggle';
 
 interface HeaderProps {
   currentPage: Page;
@@ -66,6 +67,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
               </li>
             ))}
           </ul>
+          <ThemeToggle />
         </div>
       </nav>
     </header>

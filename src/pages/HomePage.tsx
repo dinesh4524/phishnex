@@ -62,7 +62,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
 
       <footer className="mt-24 pb-6">
         <p className={`text-xs ${theme === 'dark' ? 'text-gray-600' : 'text-gray-500'}`}>
-          © 2024 Dinesh Haritha Vijay Reddy. All rights reserved.
+          © 2025 Haritha Dinesh and Vijay Reddy. All rights reserved.
         </p>
       </footer>
     </div>

@@ -91,4 +91,4 @@ A live version of this application is available for you to interact with. All fe
 
 ## © Copyright
 
-Copyright (c) 2024 Dinesh Haritha Vijay Reddy. All rights reserved.
+Copyright (c) 2025 Haritha Dinesh and Vijay Reddy. All rights reserved.
