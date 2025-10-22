@@ -86,15 +86,15 @@ const HowItWorksPage: React.FC = () => {
           <ul className="space-y-2 mb-8">
             <li className={`flex items-start ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
               <Zap className={`w-5 h-5 mr-2 flex-shrink-0 ${theme === 'dark' ? 'text-cyan-400' : 'text-indigo-600'}`} />
-              **Domain Age & Reputation:** Checking for newly registered or known malicious domains.
+              **Semantic Analysis:** Understanding the context and intent behind the words, not just the words themselves.
             </li>
             <li className={`flex items-start ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
               <Zap className={`w-5 h-5 mr-2 flex-shrink-0 ${theme === 'dark' ? 'text-cyan-400' : 'text-indigo-600'}`} />
-              **URL Structure Analysis:** Identifying deceptive subdomains, homoglyphs, and excessive redirection.
+              **URL Structure Analysis:** Identifying deceptive subdomains, homoglyphs, and suspicious parameters.
             </li>
             <li className={`flex items-start ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
               <Zap className={`w-5 h-5 mr-2 flex-shrink-0 ${theme === 'dark' ? 'text-cyan-400' : 'text-indigo-600'}`} />
-              **Keyword Pattern Matching:** Detecting urgent, threatening, or financial language common in scams.
+              **Behavioral Red Flags:** Detecting urgent, threatening, or overly enticing language common in scams.
             </li>
           </ul>
           
@@ -115,13 +115,13 @@ const HowItWorksPage: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-8">
           <div className={`p-6 rounded-lg ${quoteClasses}`}>
             <Quote className={`w-8 h-8 mb-3 ${quoteAuthorClasses}`} />
-            <p className="italic mb-3">"PhishNex made me realize how easy it is to get fooled online. The Learn Zone is incredibly helpful."</p>
-            <p className={`font-bold text-right ${quoteAuthorClasses}`}>— Student User</p>
+            <p className="italic mb-3">"I was about to click a link from my 'bank' until I ran it through the AI Scan Zone. PhishNex caught the scam in seconds. It's like having a security expert on call 24/7."</p>
+            <p className={`font-bold text-right ${quoteAuthorClasses}`}>— Grateful User</p>
           </div>
           <div className={`p-6 rounded-lg ${quoteClasses}`}>
             <Quote className={`w-8 h-8 mb-3 ${quoteAuthorClasses}`} />
-            <p className="italic mb-3">"Simple, fast, and effective — a great awareness initiative for our entire faculty and student body!"</p>
-            <p className={`font-bold text-right ${quoteAuthorClasses}`}>— Faculty Reviewer</p>
+            <p className="italic mb-3">"The Awareness Arcade is surprisingly fun. After a few rounds of the 'Spot the Phish' game, I'm much more confident in identifying suspicious emails at a glance."</p>
+            <p className={`font-bold text-right ${quoteAuthorClasses}`}>— Empowered Student</p>
           </div>
         </div>
       </div>
