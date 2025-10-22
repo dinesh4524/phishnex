@@ -59,7 +59,7 @@ const ScanPage: React.FC = () => {
       
     } catch (e: any) {
       console.error(e);
-      const errorMessage = 'Failed to analyze content. The AI may be offline or an error occurred. Please try again.';
+      const errorMessage = 'Failed to analyze content. The analysis engine may be offline or an error occurred. Please try again.';
       setError(errorMessage);
       showErrorToast(errorMessage);
     } finally {
@@ -116,7 +116,7 @@ const ScanPage: React.FC = () => {
   return (
     <div className="container mx-auto px-6 py-16 flex flex-col items-center">
       <div className="text-center mb-8 w-full max-w-3xl">
-        <h1 className="text-5xl font-orbitron font-bold text-white cyber-glow">AI Scan Zone</h1>
+        <h1 className="text-5xl font-orbitron font-bold text-white cyber-glow">Scan Zone</h1>
         <p className={`text-xl mt-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Enter a URL, email, or message to check for threats.</p>
       </div>
 
@@ -192,7 +192,7 @@ const ScanPage: React.FC = () => {
 
       {result && (
         <div className={`w-full max-w-3xl mt-8 p-8 rounded-lg animate-fade-in-up ${resultContainerClasses}`}>
-          <h2 className={`text-3xl font-orbitron mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>AI Analysis Report</h2>
+          <h2 className={`text-3xl font-orbitron mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Analysis Report</h2>
           <div className="text-center mb-6">
             <span className={`text-4xl font-bold px-6 py-2 border-2 rounded-lg ${getVerdictColor(result.verdict)}`}>{result.verdict.toUpperCase()}</span>
             <p className={`text-lg mt-4 ${listTextClasses}`}>Confidence: {result.confidence}%</p>

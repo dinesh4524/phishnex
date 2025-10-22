@@ -58,8 +58,8 @@ const HowItWorksPage: React.FC = () => {
           />
           <ProcessStep 
             step={2} 
-            title="AI Analysis" 
-            description="PhishNex sends the content to the Gemini model for deep structural and keyword pattern analysis."
+            title="Content Analysis" 
+            description="PhishNex sends the content to its analysis engine for deep structural and keyword pattern analysis."
             icon={<Brain size={32} />}
           />
           <ProcessStep 
@@ -77,9 +77,9 @@ const HowItWorksPage: React.FC = () => {
           Technical Innovation Overview
         </h2>
         <div className={`p-8 rounded-lg ${theme === 'dark' ? 'bg-black/20 border border-cyan-500/20 shadow-2xl shadow-cyan-900/50' : 'bg-white/50 border border-indigo-300/50 shadow-xl shadow-indigo-200'}`}>
-          <h3 className={`text-2xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>PhishNex Algorithm Overview</h3>
+          <h3 className={`text-2xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Analysis Engine Overview</h3>
           <p className={`mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-            PhishNex leverages a multi-layered analysis approach powered by Google Gemini. The model is prompted to focus on key indicators that bypass simple blocklists:
+            PhishNex leverages a multi-layered analysis approach. Its powerful engine focuses on key indicators that bypass simple blocklists:
           </p>
           <ul className="space-y-2 mb-8">
             <li className={`flex items-start ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -99,7 +99,7 @@ const HowItWorksPage: React.FC = () => {
           <div className="mt-8 p-4 border border-dashed border-gray-500/50 rounded-lg text-center">
             <p className="font-orbitron text-lg mb-2">Workflow Diagram Placeholder</p>
             <p className="text-sm text-gray-500">
-              [Diagram showing Input → Gemini Analysis → JSON Output → Verdict Display]
+              [Diagram showing Input → Content Analysis → JSON Output → Verdict Display]
             </p>
           </div>
         </div>

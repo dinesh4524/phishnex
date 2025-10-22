@@ -6,7 +6,7 @@
 
 ## 🚀 Overview
 
-PhishNex is not just a tool; it's an interactive cyber defense simulator. Built with a futuristic, cyber-lab aesthetic, its mission is to educate and empower users to effectively identify, avoid, and report phishing attempts and online scams. By combining AI-powered analysis with gamified learning, PhishNex transforms cybersecurity awareness from a passive chore into an engaging and empowering experience.
+PhishNex is not just a tool; it's an interactive cyber defense simulator. Built with a futuristic, cyber-lab aesthetic, its mission is to educate and empower users to effectively identify, avoid, and report phishing attempts and online scams. By combining advanced threat analysis with gamified learning, PhishNex transforms cybersecurity awareness from a passive chore into an engaging and empowering experience.
 
 The interface is designed to be immersive, using a dark neon palette, glowing animations, and a cohesive design language that makes users feel like they are operators in a high-tech security operations center.
 
@@ -14,15 +14,15 @@ The interface is designed to be immersive, using a dark neon palette, glowing an
 
 PhishNex is divided into several core modules, each serving a unique purpose in the user's journey to becoming a "Phish Terminator."
 
-### 🤖 AI Scan Zone
+### 🤖 Scan Zone
 
-The heart of PhishNex's defensive capabilities. The AI Scan Zone leverages the power of the Google Gemini model to perform real-time threat analysis on user-submitted content.
+The heart of PhishNex's defensive capabilities. The Scan Zone leverages a powerful analysis engine to perform real-time threat analysis on user-submitted content.
 
 -   **Multi-Mode Analysis:** Users can switch between three distinct modes for targeted analysis:
     -   **URL Scan:** Analyzes web addresses for suspicious domains, SSL certificate issues, and deceptive structures.
     -   **Email Scan:** Scrutinizes email content for common phishing indicators like spoofed sender addresses, generic greetings, urgent language, and malicious links.
     -   **Message Scan:** Focuses on "smishing" (SMS phishing) tactics, such as URL shorteners, fake delivery notices, and prize scams.
--   **Detailed Reporting:** The AI returns a clear verdict (`Safe`, `Suspicious`, or `Phishing`), a confidence score, a list of specific reasons for its conclusion, and actionable security tips.
+-   **Detailed Reporting:** The analysis engine returns a clear verdict (`Safe`, `Suspicious`, or `Phishing`), a confidence score, a list of specific reasons for its conclusion, and actionable security tips.
 
 ### 🧠 Interactive Awareness Zone (Learn)
 
@@ -58,7 +58,6 @@ PhishNex is built with a modern, performant, and scalable frontend technology st
 
 -   **Core Framework:** **React 19** with **Vite**
 -   **Language:** **TypeScript**
--   **AI Integration:** **Google Gemini API** (`@google/genai`)
 -   **Styling:** **Tailwind CSS** for rapid and responsive UI development.
 -   **Fonts:** **Google Fonts** (Orbitron for headers, Poppins for body text).
 
@@ -72,7 +71,7 @@ The codebase is organized logically to ensure maintainability and scalability. F
 ├── src/
 │   ├── components/     # Reusable UI components (Header, Buttons, Icons)
 │   ├── pages/          # Top-level page components (HomePage, ScanPage, etc.)
-│   ├── utils/          # Gemini AI client initialization
+│   ├── utils/          # Utility functions and configurations
 │   ├── App.tsx         # Main application component, handles routing
 │   ├── constants.ts    # Centralized data for Learn/Play sections
 │   ├── index.tsx       # React application entry point

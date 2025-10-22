@@ -12,17 +12,17 @@ Welcome, Agent! This guide will walk you through your new suite of cyber defense
 
 The main navigation is always available in the header at the top of your screen. You can switch between the five core modules at any time:
 -   **Home:** The main landing page.
--   **Scan Zone:** Access the AI-powered threat analyzer.
+-   **Scan Zone:** Access the threat analyzer.
 -   **Learn:** Study real-world phishing examples and safety tips.
 -   **Play Zone:** Test your skills in the awareness game.
 -   **Cyber Tools:** Use security utilities like the password meter.
 
-### 2. Using the AI Scan Zone
+### 2. Using the Scan Zone
 
 1.  **Select a Mode:** Choose whether you want to scan a **URL**, an **Email**, or a **Message**.
 2.  **Enter Content:** Paste the suspicious content into the input box.
 3.  **Initiate Scan:** Click the "Scan" button.
-4.  **Review the Report:** The AI will provide a detailed report including a verdict (`Safe`, `Suspicious`, or `Phishing`), its confidence level, the reasons it found, and actionable security tips.
+4.  **Review the Report:** The analysis engine will provide a detailed report including a verdict (`Safe`, `Suspicious`, or `Phishing`), its confidence level, the reasons it found, and actionable security tips.
 
 ### 3. Exploring the Learn Zone
 
@@ -59,7 +59,7 @@ Follow these simple steps to get the PhishNex project running on your machine. T
 
 ### 3. API Key Configuration (Required)
 
-The AI scanner needs a Google Gemini API key to function.
+The scanner needs a Google API key to function.
 
 1.  **Get an API Key:** Obtain your free API key from [Google AI Studio](https://aistudio.google.com/).
 2.  **Create `.env` File:** In the root of the project, create a new file named `.env`.
