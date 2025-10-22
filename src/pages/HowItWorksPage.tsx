@@ -1,3 +1,4 @@
+' with '→' in placeholder text.">
 import React from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { Link, Brain, CheckCircle, Quote, Zap } from 'lucide-react';
@@ -101,7 +102,7 @@ const HowItWorksPage: React.FC = () => {
           <div className="mt-8 p-4 border border-dashed border-gray-500/50 rounded-lg text-center">
             <p className="font-orbitron text-lg mb-2">Workflow Diagram Placeholder</p>
             <p className="text-sm text-gray-500">
-              [Diagram showing Input -> Gemini Analysis -> JSON Output -> Verdict Display]
+              [Diagram showing Input → Gemini Analysis → JSON Output → Verdict Display]
             </p>
           </div>
         </div>
