@@ -1,9 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import { Type } from "@google/genai";
 import { ai } from '@/utils/gemini';
 import type { ScanResult } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
-import { showPhishingAlert } from '@/utils/toast';
+import { showPhishingAlert, showError as showErrorToast } from '@/utils/toast';
 
 type ScanMode = 'url' | 'email' | 'message';
 
@@ -25,6 +24,8 @@ const ScanPage: React.FC = () => {
     setError(null);
 
     try {
+      const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+      
       const basePrompt = `Analyze the following ${scanMode} content for phishing characteristics. Provide your analysis in a strict JSON format with no additional text or markdown. The JSON object must have four keys: 'verdict' (string: "Safe", "Suspicious", or "Phishing"), 'confidence' (number: 0-100), 'reasons' (array of strings explaining the verdict), and 'tips' (array of strings for user safety).`;
 
       let specificPrompt = '';
@@ -38,25 +39,14 @@ const ScanPage: React.FC = () => {
       
       const fullPrompt = `${basePrompt}\n\n${specificPrompt}`;
       
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: fullPrompt,
-        config: {
+      const generationResult = await model.generateContent({
+        contents: [{ role: "user", parts: [{ text: fullPrompt }] }],
+        generationConfig: {
           responseMimeType: "application/json",
-          responseSchema: {
-            type: Type.OBJECT,
-            properties: {
-              verdict: { type: Type.STRING, description: "A single word: 'Safe', 'Suspicious', or 'Phishing'" },
-              confidence: { type: Type.NUMBER, description: "A number between 0 and 100" },
-              reasons: { type: Type.ARRAY, items: { type: Type.STRING } },
-              tips: { type: Type.ARRAY, items: { type: Type.STRING } },
-            },
-            required: ["verdict", "confidence", "reasons", "tips"],
-          }
-        }
+        },
       });
       
-      const jsonText = response.text.trim();
+      const jsonText = generationResult.response.text();
       const parsedResult: ScanResult = JSON.parse(jsonText);
       setResult(parsedResult);
       
@@ -69,7 +59,9 @@ const ScanPage: React.FC = () => {
       
     } catch (e: any) {
       console.error(e);
-      setError('Failed to analyze the content. The AI may be offline or an error occurred. Please try again.');
+      const errorMessage = 'Failed to analyze content. The AI may be offline or an error occurred. Please try again.';
+      setError(errorMessage);
+      showErrorToast(errorMessage);
     } finally {
       setIsLoading(false);
     }
