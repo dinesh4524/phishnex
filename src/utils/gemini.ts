@@ -1,4 +1,4 @@
-const apiKey = "AIzaSyDpgztVFbEyNjy_jxWFt_xMIhg8pI4Dbqk";
+const apiKey = "AIzaSyANWc8HvKe-PkkIoGCZ2NIe8z7KptFYUf4";
 
 /**
  * Dynamically imports the GoogleGenerativeAI class and initializes the client.
