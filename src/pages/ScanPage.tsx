@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import type { ScanResult } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
 import { showPhishingAlert, showError as showErrorToast } from '@/utils/toast';
-import { getGeminiModel } from '@/utils/gemini'; // Import the new function
+import { getGeminiModel } from '@/utils/gemini';
 
 type ScanMode = 'url' | 'email' | 'message';
 
@@ -24,7 +24,6 @@ const ScanPage: React.FC = () => {
     setError(null);
 
     try {
-      // Get the configured model instance directly
       const model = await getGeminiModel();
       
       const basePrompt = `Analyze the following ${scanMode} content for phishing characteristics. Provide your analysis in a strict JSON format with no additional text or markdown. The JSON object must have four keys: 'verdict' (string: "Safe", "Suspicious", or "Phishing"), 'confidence' (number: 0-100), 'reasons' (array of strings explaining the verdict), and 'tips' (array of strings for user safety).`;
@@ -51,15 +50,22 @@ const ScanPage: React.FC = () => {
       const parsedResult: ScanResult = JSON.parse(jsonText);
       setResult(parsedResult);
       
-      // Show alert based on verdict
       showPhishingAlert(parsedResult.verdict);
       
     } catch (e: any) {
-      console.error(e);
-      let errorMessage = 'Failed to analyze content. The analysis engine may be offline or an error occurred.';
-      if (e instanceof Error && e.message.includes("VITE_GEMINI_API_KEY")) {
-        errorMessage = "Your Gemini API key is not configured. Please set the VITE_GEMINI_API_KEY environment variable.";
+      console.error("Analysis Error:", e);
+      let errorMessage = 'Failed to analyze content. The analysis engine may be offline or an unexpected error occurred.';
+      
+      if (e instanceof Error) {
+        if (e.message.includes("VITE_GEMINI_API_KEY")) {
+          errorMessage = "Your Gemini API key is not configured. Please set the VITE_GEMINI_API_KEY environment variable.";
+        } else if (e.message.toLowerCase().includes("api key not valid")) {
+          errorMessage = "The provided API key is not valid. Please check your key and environment variable, then restart the app.";
+        } else if (e.message.toLowerCase().includes("quota")) {
+          errorMessage = "You have exceeded your API quota. Please check your Google AI Studio account.";
+        }
       }
+      
       setError(errorMessage);
       showErrorToast(errorMessage);
     } finally {
@@ -83,7 +89,6 @@ const ScanPage: React.FC = () => {
     }
   };
   
-  // Enhanced 3D classes
   const inputClasses = theme === 'dark'
     ? 'bg-gray-900/50 border border-purple-500/50 text-white placeholder-gray-500 focus:ring-purple-500 shadow-inner shadow-purple-900/50'
     : 'bg-white border border-indigo-300/50 text-gray-900 placeholder-gray-500 focus:ring-indigo-500 shadow-inner shadow-indigo-100';
