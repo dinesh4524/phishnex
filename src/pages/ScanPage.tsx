@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { aiPromise } from '@/utils/gemini';
+import ai from '@/utils/gemini';
 import type { ScanResult } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
 import { showPhishingAlert, showError as showErrorToast } from '@/utils/toast';
@@ -24,9 +24,6 @@ const ScanPage: React.FC = () => {
     setError(null);
 
     try {
-      // Await the promise to get the initialized AI client.
-      const ai = await aiPromise;
-      
       // Configure the model with safety settings disabled to allow analysis of suspicious content.
       const model = ai.getGenerativeModel({
         model: "gemini-1.5-flash",
@@ -164,7 +161,7 @@ const ScanPage: React.FC = () => {
             <input
               type="text"
               value={input}
-              onChange={(e) => setInput(e.g.target.value)}
+              onChange={(e) => setInput(e.target.value)}
               placeholder="e.g., http://secure-login-update.com"
               className={`flex-grow rounded-md px-4 py-3 focus:outline-none focus:ring-2 ${inputClasses}`}
               disabled={isLoading}
