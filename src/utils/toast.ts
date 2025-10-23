@@ -19,7 +19,7 @@ export const showWarning = (message: string) => {
   });
 };
 
-export const showPhishingAlert = (verdict: 'Suspicious' | 'Phishing') => {
+export const showPhishingAlert = (verdict: 'Safe' | 'Suspicious' | 'Phishing') => {
   if (verdict === 'Phishing') {
     toast.error('🚨 PHISHING DETECTED! Do NOT interact with this content.', {
       duration: 6000,
@@ -41,7 +41,7 @@ export const showPhishingAlert = (verdict: 'Suspicious' | 'Phishing') => {
         fontWeight: 'bold',
       }
     });
-  } else {
+  } else { // Safe
     toast.success('✅ Content analyzed and appears safe.', {
       duration: 3000,
     });
