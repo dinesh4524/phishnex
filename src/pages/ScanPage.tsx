@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import type { ScanResult } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
 import { showPhishingAlert, showError as showErrorToast } from '@/utils/toast';
-import ai from '@/utils/gemini';
+import { getGeminiClient } from '@/utils/gemini'; // Import the async function
 
 type ScanMode = 'url' | 'email' | 'message';
 
@@ -24,7 +24,10 @@ const ScanPage: React.FC = () => {
     setError(null);
 
     try {
-      // Get the generative model from the pre-configured client
+      // Initialize the client asynchronously
+      const ai = await getGeminiClient();
+      
+      // Get the generative model from the initialized client
       const model = ai.getGenerativeModel({
         model: "gemini-1.5-flash",
         safetySettings: [
@@ -64,7 +67,7 @@ const ScanPage: React.FC = () => {
       
     } catch (e: any) {
       console.error(e);
-      const errorMessage = 'Failed to analyze content. The analysis engine may be offline or an error occurred. Please try again.';
+      const errorMessage = 'Failed to analyze content. The analysis engine may be offline or an error occurred. Please ensure your API key is set correctly.';
       setError(errorMessage);
       showErrorToast(errorMessage);
     } finally {
