@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@google/genai": "^1.25.0",
+    "@tailwindcss/vite": "^4.1.15",
     "lucide-react": "^0.546.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-hot-toast": "^2.6.0"
+    "react-hot-toast": "^2.6.0",
+    "tailwindcss": "^4.1.15"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

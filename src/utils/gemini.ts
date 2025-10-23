@@ -17,12 +17,18 @@ export async function getGeminiModel() {
     const genAIModule = await import("@google/genai");
     
     // Handle various export patterns:
-    // 1. Check if the module root itself is the constructor (common in some bundling/transpilation)
     if (typeof genAIModule === 'function') {
+      // Case 1: Module root is the constructor (e.g., default export is the class)
       GoogleGenerativeAI = genAIModule;
-    } else {
-      // 2. Check named export (standard ESM) or default export (common fallback)
-      GoogleGenerativeAI = genAIModule.GoogleGenerativeAI || (genAIModule as any).default;
+    } else if (genAIModule.GoogleGenerativeAI) {
+      // Case 2: Named export 'GoogleGenerativeAI' exists directly on the module object
+      GoogleGenerativeAI = genAIModule.GoogleGenerativeAI;
+    } else if ((genAIModule as any).default && (genAIModule as any).default.GoogleGenerativeAI) {
+      // Case 3: Named export is nested under the default export
+      GoogleGenerativeAI = (genAIModule as any).default.GoogleGenerativeAI;
+    } else if ((genAIModule as any).default && typeof (genAIModule as any).default === 'function') {
+      // Case 4: Default export itself is the constructor (common fallback)
+      GoogleGenerativeAI = (genAIModule as any).default;
     }
     
   } catch (e) {
