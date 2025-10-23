@@ -1,8 +1,4 @@
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-
-if (!apiKey) {
-  throw new Error("API key not found. Please set the VITE_GEMINI_API_KEY environment variable in your .env file.");
-}
+const apiKey = "AIzaSyDpgztVFbEyNjy_jxWFt_xMIhg8pI4Dbqk";
 
 /**
  * Dynamically imports the GoogleGenerativeAI class and initializes the client.
