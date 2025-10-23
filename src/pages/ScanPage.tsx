@@ -4,6 +4,33 @@ import { useTheme } from '@/context/ThemeContext';
 import { showPhishingAlert, showError as showErrorToast } from '@/utils/toast';
 import { getGeminiModel } from '@/utils/gemini';
 
+// 1. Define the Response Schema for the Gemini API
+const scanResultSchema = {
+  type: "object",
+  properties: {
+    verdict: {
+      type: "string",
+      enum: ["Safe", "Suspicious", "Phishing"], // Enforce specific values
+      description: "The final safety verdict.",
+    },
+    confidence: {
+      type: "number",
+      description: "Confidence level of the verdict (0-100).",
+    },
+    reasons: {
+      type: "array",
+      items: { type: "string" },
+      description: "List of reasons for the verdict.",
+    },
+    tips: {
+      type: "array",
+      items: { type: "string" },
+      description: "List of security tips for the user.",
+    },
+  },
+  required: ["verdict", "confidence", "reasons", "tips"],
+};
+
 type ScanMode = 'url' | 'email' | 'message';
 
 const ScanPage: React.FC = () => {
@@ -14,8 +41,14 @@ const ScanPage: React.FC = () => {
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Helper to escape input for prompt safety (prevents breaking the prompt string)
+  const escapeInputForPrompt = (content: string): string => {
+    // Replace double quotes with escaped double quotes, and backslashes
+    return content.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  };
+
   const analyzeContent = useCallback(async () => {
-    if (!input) {
+    if (!input.trim()) {
       setError('Please enter content to analyze.');
       return;
     }
@@ -23,18 +56,21 @@ const ScanPage: React.FC = () => {
     setResult(null);
     setError(null);
 
+    // 💡 Improvement: Escape the input content before using it in the prompt
+    const safeInput = escapeInputForPrompt(input.trim());
+
     try {
       const model = await getGeminiModel();
       
-      const basePrompt = `Analyze the following ${scanMode} content for phishing characteristics. Provide your analysis in a strict JSON format with no additional text or markdown. The JSON object must have four keys: 'verdict' (string: "Safe", "Suspicious", or "Phishing"), 'confidence' (number: 0-100), 'reasons' (array of strings explaining the verdict), and 'tips' (array of strings for user safety).`;
+      const basePrompt = `Analyze the following ${scanMode} content for phishing characteristics. Provide your analysis in a strict JSON format. The JSON object must conform exactly to the provided schema.`;
 
       let specificPrompt = '';
       if (scanMode === 'url') {
-        specificPrompt = `Focus on URL structure, domain age/reputation, SSL certificate presence, and if the page content seems deceptive. Content: "${input}"`;
+        specificPrompt = `Focus on URL structure, domain age/reputation, SSL certificate presence, and if the page content seems deceptive. Content: "${safeInput}"`;
       } else if (scanMode === 'email') {
-        specificPrompt = `Focus on the sender's address, subject line, generic greetings (e.g., "Dear Customer"), urgent or threatening language, spelling/grammar mistakes, and any mentioned links or attachments. Content: "${input}"`;
+        specificPrompt = `Focus on the sender's address, subject line, generic greetings (e.g., "Dear Customer"), urgent or threatening language, spelling/grammar mistakes, and any mentioned links or attachments. Content: "${safeInput}"`;
       } else { // message mode
-        specificPrompt = `Focus on characteristics of "smishing" (SMS phishing). Analyze for urgent calls to action, shortened links (e.g., bit.ly), claims of prize winnings or delivery issues, and requests for personal information. Content: "${input}"`;
+        specificPrompt = `Focus on characteristics of "smishing" (SMS phishing). Analyze for urgent calls to action, shortened links (e.g., bit.ly), claims of prize winnings or delivery issues, and requests for personal information. Content: "${safeInput}"`;
       }
       
       const fullPrompt = `${basePrompt}\n\n${specificPrompt}`;
@@ -43,20 +79,14 @@ const ScanPage: React.FC = () => {
         contents: [{ role: "user", parts: [{ text: fullPrompt }] }],
         generationConfig: {
           responseMimeType: "application/json",
+          // 💡 Critical Improvement: Use responseSchema for guaranteed JSON structure
+          responseSchema: scanResultSchema as any, // Cast as any to satisfy type mismatch if the SDK type is strict
         },
       });
       
-      let jsonText = generationResult.response.text();
+      // Since responseSchema is used, the response text *should* be valid JSON
+      const jsonText = generationResult.response.text();
       
-      // Clean the response to extract only the JSON part, making it more robust
-      const jsonMatch = jsonText.match(/\{[\s\S]*\}/);
-      if (jsonMatch && jsonMatch[0]) {
-        jsonText = jsonMatch[0];
-      } else {
-        // If no JSON object is found, throw an error to be caught below
-        throw new Error("The model did not return a valid JSON object.");
-      }
-
       const parsedResult: ScanResult = JSON.parse(jsonText);
       setResult(parsedResult);
       
@@ -70,11 +100,11 @@ const ScanPage: React.FC = () => {
         if (e.message.includes("VITE_GEMINI_API_KEY")) {
           errorMessage = "Your Gemini API key is not configured. Please set the VITE_GEMINI_API_KEY environment variable.";
         } else if (e.message.toLowerCase().includes("api key not valid")) {
-          errorMessage = "The provided API key is not valid. Please check your key and environment variable, then restart the app.";
+          errorMessage = "The provided API key is not valid. Please check your key and environment variable.";
         } else if (e.message.toLowerCase().includes("quota")) {
           errorMessage = "You have exceeded your API quota. Please check your Google AI Studio account.";
         } else if (e.message.includes("JSON")) {
-          errorMessage = "The analysis engine returned an invalid format. Please try again.";
+          errorMessage = "The analysis engine returned an invalid format. Please try again. (If using Vercel/similar hosting, check memory/timeout).";
         }
       }
       
@@ -92,15 +122,17 @@ const ScanPage: React.FC = () => {
     setInput('');
   }
 
+  // 💡 Improvement: Cleaner verdict color mapping
   const getVerdictColor = (verdict?: string) => {
-    switch (verdict) {
-      case 'Safe': return 'text-green-400 border-green-400';
-      case 'Suspicious': return 'text-yellow-400 border-yellow-400';
-      case 'Phishing': return 'text-red-500 border-red-500';
-      default: return 'text-gray-400 border-gray-400';
-    }
+    const colorMap: Record<string, string> = {
+      'Safe': 'text-green-400 border-green-400',
+      'Suspicious': 'text-yellow-400 border-yellow-400',
+      'Phishing': 'text-red-500 border-red-500',
+    };
+    return colorMap[verdict ?? ''] || 'text-gray-400 border-gray-400';
   };
   
+  // Tailwind Classes Definitions (unchanged)
   const inputClasses = theme === 'dark'
     ? 'bg-gray-900/50 border border-purple-500/50 text-white placeholder-gray-500 focus:ring-purple-500 shadow-inner shadow-purple-900/50'
     : 'bg-white border border-indigo-300/50 text-gray-900 placeholder-gray-500 focus:ring-indigo-500 shadow-inner shadow-indigo-100';
@@ -156,22 +188,25 @@ const ScanPage: React.FC = () => {
           </button>
         </div>
         <div className="flex flex-col sm:flex-row gap-4">
+          {/* 💡 Improvement: Use type="url" for better mobile keyboard and validation */}
           {scanMode === 'url' ? (
             <input
-              type="text"
+              id="scan-input"
+              type="url"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="e.g., http://secure-login-update.com"
+              placeholder="e.g., https://secure-login-update.com"
               className={`flex-grow rounded-md px-4 py-3 focus:outline-none focus:ring-2 ${inputClasses}`}
               disabled={isLoading}
             />
           ) : (
             <textarea
+              id="scan-input"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={
                 scanMode === 'email' 
-                  ? "Paste the full email content here..." 
+                  ? "Paste the full email content (headers, body, etc.) here..." 
                   : "Paste the SMS or instant message content here..."
               }
               className={`flex-grow rounded-md px-4 py-3 focus:outline-none focus:ring-2 h-32 resize-none ${inputClasses}`}
@@ -180,13 +215,14 @@ const ScanPage: React.FC = () => {
           )}
           <button
             onClick={analyzeContent}
-            disabled={isLoading || !input}
+            disabled={isLoading || !input.trim()}
             className={`px-8 py-3 font-bold rounded-md transition-colors flex items-center justify-center ${scanButtonClasses}`}
           >
             {isLoading ? 'Scanning...' : 'Scan'}
           </button>
         </div>
-        {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+        {/* 💡 Improvement: Add aria-live for accessibility of error messages */}
+        {error && <p role="alert" aria-live="assertive" className="text-red-500 mt-4 text-center">{error}</p>}
       </div>
 
       {isLoading && (
@@ -194,6 +230,7 @@ const ScanPage: React.FC = () => {
           <p className="text-center text-cyan-300 font-orbitron tracking-widest animate-pulse">ANALYZING THREAT MATRIX...</p>
           <div className="w-full bg-gray-700/50 rounded-full h-2 mt-4 overflow-hidden border border-cyan-900">
             <div className="bg-gradient-to-r from-purple-500 to-cyan-400 h-full rounded-full animate-scanner"></div>
+            {/* Inline style for animation is acceptable for utility animations */}
             <style>{`
               @keyframes scanner {
                 0% { transform: translateX(-100%); }
@@ -207,8 +244,9 @@ const ScanPage: React.FC = () => {
         </div>
       )}
 
+      {/* 💡 Improvement: Add aria-live for accessibility of results */}
       {result && (
-        <div className={`w-full max-w-3xl mt-8 p-8 rounded-lg animate-fade-in-up ${resultContainerClasses}`}>
+        <div role="status" aria-live="polite" className={`w-full max-w-3xl mt-8 p-8 rounded-lg animate-fade-in-up ${resultContainerClasses}`}>
           <h2 className={`text-3xl font-orbitron mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Analysis Report</h2>
           <div className="text-center mb-6">
             <span className={`text-4xl font-bold px-6 py-2 border-2 rounded-lg ${getVerdictColor(result.verdict)}`}>{result.verdict.toUpperCase()}</span>
