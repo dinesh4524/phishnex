@@ -7,7 +7,7 @@ import { Swords } from '@/components/icons/Swords';
 import { Wrench } from '@/components/icons/Wrench';
 import { useTheme } from '@/context/ThemeContext';
 import ThemeToggle from '@/components/ThemeToggle';
-import { HelpCircle } from 'lucide-react'; // New Icon
+import { HelpCircle } from 'lucide-react';
 
 interface HeaderProps {
   currentPage: Page;
@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
     { id: 'learn', label: 'Learn', icon: <BookOpen className="w-5 h-5 mr-2"/> },
     { id: 'play', label: 'Play Zone', icon: <Swords className="w-5 h-5 mr-2"/> },
     { id: 'tools', label: 'Cyber Tools', icon: <Wrench className="w-5 h-5 mr-2"/> },
-    { id: 'howitworks', label: 'How It Works', icon: <HelpCircle className="w-5 h-5 mr-2"/> }, // New Item
+    { id: 'howitworks', label: 'How It Works', icon: <HelpCircle className="w-5 h-5 mr-2"/> },
   ];
 
   const handleNavClick = (page: Page) => {
@@ -43,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
       <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
         <div 
           className="flex items-center space-x-2 cursor-pointer"
-          onClick={() => handleNavClick('home')} // Always navigate to home on logo click
+          onClick={() => handleNavClick('home')}
         >
           <ShieldCheck className={`w-8 h-8 ${logoClasses}`} />
           <h1 className={`text-2xl font-orbitron font-bold ${theme === 'dark' ? 'text-white cyber-glow' : 'text-gray-900'}`}>PhishNex</h1>
