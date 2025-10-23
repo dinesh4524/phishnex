@@ -1,9 +1,12 @@
 import * as GenAIModule from '@google/genai';
 
-// Access the class from the imported namespace object
-const GoogleGenerativeAI = GenAIModule.GoogleGenerativeAI;
+// Attempt to find the GoogleGenerativeAI class, checking common export patterns (named, nested under default, or default itself).
+const GoogleGenerativeAI = 
+  (GenAIModule as any).GoogleGenerativeAI || 
+  (GenAIModule as any).default?.GoogleGenerativeAI || 
+  (GenAIModule as any).default;
 
-if (!GoogleGenerativeAI) {
+if (typeof GoogleGenerativeAI !== 'function') {
   throw new Error("Could not find GoogleGenerativeAI in the @google/genai package. Please ensure the package is installed correctly.");
 }
 
