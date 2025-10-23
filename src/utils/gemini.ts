@@ -10,20 +10,13 @@ export async function getGeminiModel() {
     throw new Error("VITE_GEMINI_API_KEY is not set. Please set it in your environment.");
   }
 
-  // Initialize the client. The latest SDK defaults to the stable v1 endpoint.
-  const genAI = new GoogleGenerativeAI(apiKey);
-
-  // --- Debugging Step: List available models ---
-  // This step is kept to help diagnose API key issues if they arise.
-  try {
-    const models = await genAI.listModels();
-    console.log("--- Available Gemini Models (v1 API) ---");
-    models.models.forEach(model => console.log(model.name));
-    console.log("-----------------------------------------");
-  } catch (e) {
-    console.warn("Could not list models. API key or network issue.", e);
-  }
-  // ---------------------------------------------
+  // **CRITICAL FIX**: Explicitly set the API endpoint to the stable v1 base path.
+  // The environment appears to be defaulting to the 'v1beta' endpoint, which
+  // causes a 404 error for the 'gemini-1.5-flash' model. This override
+  // forces the SDK to use the correct 'v1' endpoint where the model is available.
+  const genAI = new GoogleGenerativeAI(apiKey, {
+    apiEndpoint: "https://generativelanguage.googleapis.com",
+  });
 
   // Return a configured model instance, centralizing the configuration.
   return genAI.getGenerativeModel({
