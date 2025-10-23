@@ -10,9 +10,11 @@ export async function getGeminiModel() {
     throw new Error("VITE_GEMINI_API_KEY is not set. Please set it in your environment.");
   }
 
-  // Initialize the client, explicitly setting apiVersion to "v1" to ensure
-  // compatibility with gemini-1.5-flash and the stable endpoint.
-  const genAI = new GoogleGenerativeAI(apiKey, { apiVersion: "v1" });
+  // Initialize the client, explicitly setting the full stable API endpoint
+  // to ensure compatibility with gemini-1.5-flash and bypass v1beta issues.
+  const genAI = new GoogleGenerativeAI(apiKey, { 
+    apiEndpoint: "https://generativelanguage.googleapis.com/v1" 
+  });
 
   // --- Debugging Step: List available models ---
   try {
