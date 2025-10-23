@@ -56,7 +56,10 @@ const ScanPage: React.FC = () => {
       
     } catch (e: any) {
       console.error(e);
-      const errorMessage = 'Failed to analyze content. The analysis engine may be offline or an error occurred. Please ensure your API key is set correctly.';
+      let errorMessage = 'Failed to analyze content. The analysis engine may be offline or an error occurred.';
+      if (e instanceof Error && e.message.includes("VITE_GEMINI_API_KEY")) {
+        errorMessage = "Your Gemini API key is not configured. Please set the VITE_GEMINI_API_KEY environment variable.";
+      }
       setError(errorMessage);
       showErrorToast(errorMessage);
     } finally {

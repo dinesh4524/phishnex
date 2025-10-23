@@ -1,4 +1,4 @@
-const apiKey = "AIzaSyANWc8HvKe-PkkIoGCZ2NIe8z7KptFYUf4";
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
 /**
  * Dynamically and safely imports the GoogleGenerativeAI class, handling
@@ -6,6 +6,10 @@ const apiKey = "AIzaSyANWc8HvKe-PkkIoGCZ2NIe8z7KptFYUf4";
  * Initializes and returns a configured Gemini model instance.
  */
 export async function getGeminiModel() {
+  if (!apiKey) {
+    throw new Error("VITE_GEMINI_API_KEY is not set. Please set it in your environment.");
+  }
+
   let GoogleGenerativeAI;
 
   try {
