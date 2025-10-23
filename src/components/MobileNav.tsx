@@ -63,10 +63,9 @@ const MobileNav: React.FC<MobileNavProps> = ({ currentPage, setCurrentPage }) =>
 
       {/* Sidebar Menu */}
       <div 
-        className={`fixed top-0 left-0 h-full w-64 z-50 transform transition-transform duration-300 ease-in-out p-6 md:hidden ${sidebarClasses} ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
-        style={{ maxHeight: '100vh', overflowY: 'auto' }}
+        className={`fixed top-0 left-0 h-full w-64 z-50 transform transition-transform duration-300 ease-in-out md:hidden ${sidebarClasses} ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center p-6 border-b border-gray-700">
           <h2 className={`text-2xl font-orbitron font-bold ${theme === 'dark' ? 'text-white cyber-glow' : 'text-gray-900'}`}>PhishNex</h2>
           <button
             onClick={() => setIsOpen(false)}
@@ -77,23 +76,25 @@ const MobileNav: React.FC<MobileNavProps> = ({ currentPage, setCurrentPage }) =>
           </button>
         </div>
         
-        <ul className="space-y-2">
-          {navItems.map((item) => (
-            <li key={item.id}>
-              <button
-                onClick={() => handleNavClick(item.id)}
-                className={`flex items-center w-full font-semibold text-lg transition-all duration-300 px-4 py-3 rounded-md ${
-                  currentPage === item.id 
-                    ? linkActiveClasses
-                    : linkInactiveClasses
-                }`}
-              >
-                {item.icon}
-                {item.label}
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div className="overflow-y-auto" style={{ height: 'calc(100% - 80px)' }}>
+          <ul className="py-4 px-2">
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <button
+                  onClick={() => handleNavClick(item.id)}
+                  className={`flex items-center w-full font-semibold text-lg transition-all duration-300 px-4 py-3 rounded-md my-1 ${
+                    currentPage === item.id 
+                      ? linkActiveClasses
+                      : linkInactiveClasses
+                  }`}
+                >
+                  {item.icon}
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );
