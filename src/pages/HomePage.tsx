@@ -8,6 +8,7 @@ import { BookOpen } from '@/components/icons/BookOpen';
 import { Wrench } from '@/components/icons/Wrench';
 import { useTheme } from '@/context/ThemeContext';
 import RandomTip from '@/components/RandomTip';
+import { HelpCircle } from 'lucide-react';
 
 interface HomePageProps {
   setCurrentPage: (page: Page) => void;
@@ -49,7 +50,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
         <p className={`text-lg md:text-xl mb-10 max-w-2xl mx-auto ${subtitleClasses} animate-fade-in-up`} style={{ animationDelay: '0.3s' }}>
           Your Digital Shield Against Phishing & Online Scams
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+        <div className="flex flex-wrap items-center justify-center gap-6 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
           <GlitchButton onClick={() => handleNav('scan')} icon={<ScanLine />}>
             Scan
           </GlitchButton>
@@ -61,6 +62,9 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
           </GlitchButton>
           <GlitchButton onClick={() => handleNav('tools')} icon={<Wrench />}>
             Cyber Tools
+          </GlitchButton>
+          <GlitchButton onClick={() => handleNav('howitworks')} icon={<HelpCircle />}>
+            How It Works
           </GlitchButton>
         </div>
       </div>
