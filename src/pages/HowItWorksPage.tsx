@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { Link, Brain, CheckCircle, Zap, ClipboardPaste, Cpu, FileJson2, Terminal, ArrowRight } from 'lucide-react';
-import RandomTip from '@/components/RandomTip';
 
 const ProcessStep: React.FC<{ step: number, title: string, description: string, icon: React.ReactNode }> = ({ step, title, description, icon }) => {
   const { theme } = useTheme();
@@ -37,11 +36,6 @@ const HowItWorksPage: React.FC = () => {
       <div className="text-center mb-12">
         <h1 className="text-5xl font-orbitron font-bold text-white cyber-glow">How PhishNex Works</h1>
         <p className={`text-xl mt-4 ${subtitleClasses}`}>The engine behind your digital shield.</p>
-      </div>
-
-      {/* Security Tip Widget */}
-      <div className="mb-12 max-w-3xl mx-auto">
-        <RandomTip />
       </div>
 
       {/* 1. Process Flow */}

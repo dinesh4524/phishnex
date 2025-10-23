@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LEARN_CARDS } from '@/constants';
 import type { LearnCardData } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
+import AwarenessQuote from '@/components/AwarenessQuote';
 
 const CyberCard: React.FC<{ card: LearnCardData }> = ({ card }) => {
   const { theme } = useTheme();
@@ -64,6 +65,11 @@ const LearnPage: React.FC = () => {
         <h1 className="text-5xl font-orbitron font-bold text-white cyber-glow">Interactive Awareness Zone</h1>
         <p className={`text-xl mt-4 ${subtitleClasses}`}>Click the cards to reveal why they are scams. Learn the signs.</p>
       </div>
+
+      <div className="mb-12 max-w-3xl mx-auto">
+        <AwarenessQuote />
+      </div>
+
       <div className="flex flex-wrap justify-center gap-12">
         {LEARN_CARDS.map(card => (
           <CyberCard key={card.id} card={card} />

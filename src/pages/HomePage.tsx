@@ -7,6 +7,7 @@ import { Swords } from '@/components/icons/Swords';
 import { BookOpen } from '@/components/icons/BookOpen';
 import { Wrench } from '@/components/icons/Wrench';
 import { useTheme } from '@/context/ThemeContext';
+import RandomTip from '@/components/RandomTip';
 
 interface HomePageProps {
   setCurrentPage: (page: Page) => void;
@@ -25,7 +26,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
   const subtitleClasses = theme === 'dark' ? 'text-gray-300' : 'text-gray-600';
 
   return (
-    <div className="container mx-auto px-6 text-center flex flex-col items-center justify-center w-full">
+    <div className="container mx-auto px-6 py-12 md:py-24 text-center flex flex-col items-center">
       <div 
         className="relative w-48 h-48 mb-8 transition-all duration-500 transform"
         onMouseEnter={() => setIsHovered(true)}
@@ -58,6 +59,10 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
         <GlitchButton onClick={() => handleNav('tools')} icon={<Wrench />}>
           Cyber Tools
         </GlitchButton>
+      </div>
+
+      <div className="mt-16 w-full max-w-2xl animate-fade-in-up" style={{ animationDelay: '1.5s' }}>
+        <RandomTip />
       </div>
     </div>
   );

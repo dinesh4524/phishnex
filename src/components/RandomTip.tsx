@@ -9,6 +9,13 @@ const TIPS = [
   "Use a unique, complex password for every important online account.",
   "Be suspicious of any message creating extreme urgency or promising prizes.",
   "If a call is suspicious, hang up and call the company back using their official number.",
+  "Keep your software and operating system updated to patch security vulnerabilities.",
+  "Avoid sharing sensitive personal information on social media or unverified websites.",
+  "Use a VPN (Virtual Private Network) when browsing on public Wi-Fi to encrypt your connection.",
+  "Regularly back up your important data to a secure, separate location.",
+  "Lock your computer and phone when you are not using them.",
+  "Be cautious of phishing messages pretending to be official communications from banks or services.",
+  "Continuously educate yourself about new cyber threats and safety practices.",
 ];
 
 const RandomTip: React.FC = () => {
