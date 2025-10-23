@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import type { ScanResult } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
 import { showPhishingAlert, showError as showErrorToast } from '@/utils/toast';
-import { getGeminiClient } from '@/utils/gemini'; // Import the async function
+import { getGeminiModel } from '@/utils/gemini'; // Import the new function
 
 type ScanMode = 'url' | 'email' | 'message';
 
@@ -24,19 +24,8 @@ const ScanPage: React.FC = () => {
     setError(null);
 
     try {
-      // Initialize the client asynchronously
-      const ai = await getGeminiClient();
-      
-      // Get the generative model from the initialized client
-      const model = ai.getGenerativeModel({
-        model: "gemini-1.5-flash",
-        safetySettings: [
-          { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-          { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-          { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-          { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
-        ],
-      });
+      // Get the configured model instance directly
+      const model = await getGeminiModel();
       
       const basePrompt = `Analyze the following ${scanMode} content for phishing characteristics. Provide your analysis in a strict JSON format with no additional text or markdown. The JSON object must have four keys: 'verdict' (string: "Safe", "Suspicious", or "Phishing"), 'confidence' (number: 0-100), 'reasons' (array of strings explaining the verdict), and 'tips' (array of strings for user safety).`;
 

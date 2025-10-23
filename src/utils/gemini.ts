@@ -1,21 +1,37 @@
 const apiKey = "AIzaSyANWc8HvKe-PkkIoGCZ2NIe8z7KptFYUf4";
 
 /**
- * Dynamically imports the GoogleGenerativeAI class and initializes the client.
- * This is necessary to bypass module resolution issues with the package's web bundle.
+ * Dynamically and safely imports the GoogleGenerativeAI class, handling
+ * different module export patterns in Vite environments.
+ * Initializes and returns a configured Gemini model instance.
  */
-export async function getGeminiClient() {
-  const GenAIModule = await import('@google/genai');
-  
-  // Check for common export patterns after dynamic import
-  const GoogleGenerativeAI = 
-    (GenAIModule as any).GoogleGenerativeAI || 
-    (GenAIModule as any).default?.GoogleGenerativeAI || 
-    (GenAIModule as any).default;
+export async function getGeminiModel() {
+  let GoogleGenerativeAI;
 
-  if (typeof GoogleGenerativeAI !== 'function') {
-    throw new Error("Failed to initialize GoogleGenerativeAI after dynamic import.");
+  try {
+    // Attempt to import the module and find the constructor.
+    // This handles various export patterns (named, default).
+    const genAIModule = await import("@google/genai");
+    GoogleGenerativeAI = genAIModule.GoogleGenerativeAI || (genAIModule as any).default;
+  } catch (e) {
+    console.error("Failed to import @google/genai", e);
+    throw new Error("Could not import the @google/genai package.");
   }
 
-  return new GoogleGenerativeAI({ apiKey });
+  if (typeof GoogleGenerativeAI !== 'function') {
+    throw new Error("Could not find a valid GoogleGenerativeAI constructor in the @google/genai package.");
+  }
+
+  const genAI = new GoogleGenerativeAI(apiKey);
+
+  // Return a configured model instance, centralizing the configuration.
+  return genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    safetySettings: [
+      { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+      { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+      { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+      { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
+    ],
+  });
 }

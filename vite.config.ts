@@ -14,8 +14,12 @@ export default defineConfig({
         }
     },
     optimizeDeps: {
-        include: [],
-        // Exclude the problematic package from optimization
-        exclude: ['@google/genai'],
+        // Force pre-bundling for @google/genai to resolve module issues
+        include: ['@google/genai'],
+    },
+    build: {
+        commonjsOptions: {
+            include: [/node_modules/],
+        },
     },
 });
