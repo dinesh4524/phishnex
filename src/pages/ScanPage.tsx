@@ -1,5 +1,4 @@
-import React, { useState, useCallback } from 'react';
-import ai from '@/utils/gemini';
+import React, { useState, useCallback, useEffect } from 'react';
 import type { ScanResult } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
 import { showPhishingAlert, showError as showErrorToast } from '@/utils/toast';
@@ -13,10 +12,30 @@ const ScanPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [aiModule, setAiModule] = useState<any>(null);
+
+  // Dynamically import the AI module on component mount
+  useEffect(() => {
+    const loadAiModule = async () => {
+      try {
+        const module = await import('@google/genai');
+        setAiModule(module);
+      } catch (err) {
+        console.error("Failed to load AI module", err);
+        setError("Failed to initialize the analysis engine. Please try again later.");
+      }
+    };
+
+    loadAiModule();
+  }, []);
 
   const analyzeContent = useCallback(async () => {
     if (!input) {
       setError('Please enter content to analyze.');
+      return;
+    }
+    if (!aiModule) {
+      setError('Analysis engine is still loading. Please try again in a moment.');
       return;
     }
     setIsLoading(true);
@@ -25,7 +44,8 @@ const ScanPage: React.FC = () => {
 
     try {
       // Configure the model with safety settings disabled to allow analysis of suspicious content.
-      const model = ai.getGenerativeModel({
+      const model = new aiModule.GoogleGenerativeAI({
+        apiKey: import.meta.env.VITE_GEMINI_API_KEY,
         model: "gemini-1.5-flash",
         safetySettings: [
           {
@@ -74,8 +94,7 @@ const ScanPage: React.FC = () => {
       // Show alert based on verdict
       showPhishingAlert(parsedResult.verdict);
       
-    } catch (e: any)
-     {
+    } catch (e: any) {
       console.error(e);
       const errorMessage = 'Failed to analyze content. The analysis engine may be offline or an error occurred. Please try again.';
       setError(errorMessage);
@@ -83,7 +102,7 @@ const ScanPage: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [input, scanMode]);
+  }, [input, scanMode, aiModule]);
   
   const handleModeChange = (mode: ScanMode) => {
     setScanMode(mode);
@@ -181,10 +200,10 @@ const ScanPage: React.FC = () => {
           )}
           <button
             onClick={analyzeContent}
-            disabled={isLoading || !input}
+            disabled={isLoading || !input || !aiModule}
             className={`px-8 py-3 font-bold rounded-md transition-colors flex items-center justify-center ${scanButtonClasses}`}
           >
-            {isLoading ? 'Scanning...' : 'Scan'}
+            {isLoading ? 'Scanning...' : !aiModule ? 'Loading...' : 'Scan'}
           </button>
         </div>
         {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
