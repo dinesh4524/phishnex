@@ -8,6 +8,7 @@ import { Wrench } from '@/components/icons/Wrench';
 import { useTheme } from '@/context/ThemeContext';
 import ThemeToggle from '@/components/ThemeToggle';
 import { HelpCircle } from 'lucide-react';
+import MobileNav from './MobileNav';
 
 interface HeaderProps {
   currentPage: Page;
@@ -49,6 +50,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
           <h1 className={`text-2xl font-orbitron font-bold ${theme === 'dark' ? 'text-white cyber-glow' : 'text-gray-900'}`}>PhishNex</h1>
         </div>
         <div className="flex items-center space-x-4">
+          {/* Desktop Navigation */}
           <ul className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
               <li key={item.id}>
@@ -70,6 +72,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
             ))}
           </ul>
           <ThemeToggle />
+          {/* Mobile Navigation */}
+          <MobileNav currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
       </nav>
     </header>

@@ -51,11 +51,7 @@ const ScanPage: React.FC = () => {
       setResult(parsedResult);
       
       // Show alert based on verdict
-      if (parsedResult.verdict !== 'Safe') {
-        showPhishingAlert(parsedResult.verdict as 'Suspicious' | 'Phishing');
-      } else {
-        showPhishingAlert('Safe' as any); // Cast to use the success toast
-      }
+      showPhishingAlert(parsedResult.verdict);
       
     } catch (e: any) {
       console.error(e);
