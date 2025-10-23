@@ -14,6 +14,6 @@ export default defineConfig({
         }
     },
     optimizeDeps: {
-        include: ['@google/genai'],
+        include: [],
     },
 });
