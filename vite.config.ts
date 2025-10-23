@@ -15,5 +15,7 @@ export default defineConfig({
     },
     optimizeDeps: {
         include: [],
+        // Exclude the problematic package from optimization
+        exclude: ['@google/genai'],
     },
 });
