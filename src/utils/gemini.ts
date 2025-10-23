@@ -10,13 +10,21 @@ export async function getGeminiModel() {
     throw new Error("VITE_GEMINI_API_KEY is not set. Please set it in your environment.");
   }
 
-  let GoogleGenerativeAI;
+  let GoogleGenerativeAI: any;
 
   try {
-    // Attempt to import the module and find the constructor.
-    // This handles various export patterns (named, default).
+    // Attempt to import the module.
     const genAIModule = await import("@google/genai");
-    GoogleGenerativeAI = genAIModule.GoogleGenerativeAI || (genAIModule as any).default;
+    
+    // Handle various export patterns:
+    // 1. Check if the module root itself is the constructor (common in some bundling/transpilation)
+    if (typeof genAIModule === 'function') {
+      GoogleGenerativeAI = genAIModule;
+    } else {
+      // 2. Check named export (standard ESM) or default export (common fallback)
+      GoogleGenerativeAI = genAIModule.GoogleGenerativeAI || (genAIModule as any).default;
+    }
+    
   } catch (e) {
     console.error("Failed to import @google/genai", e);
     throw new Error("Could not import the @google/genai package.");
