@@ -26,7 +26,29 @@ const ScanPage: React.FC = () => {
     try {
       // Await the promise to get the initialized AI client.
       const ai = await aiPromise;
-      const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+      
+      // Configure the model with safety settings disabled to allow analysis of suspicious content.
+      const model = ai.getGenerativeModel({
+        model: "gemini-1.5-flash",
+        safetySettings: [
+          {
+            category: "HARM_CATEGORY_HARASSMENT",
+            threshold: "BLOCK_NONE",
+          },
+          {
+            category: "HARM_CATEGORY_HATE_SPEECH",
+            threshold: "BLOCK_NONE",
+          },
+          {
+            category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+            threshold: "BLOCK_NONE",
+          },
+          {
+            category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+            threshold: "BLOCK_NONE",
+          },
+        ],
+      });
       
       const basePrompt = `Analyze the following ${scanMode} content for phishing characteristics. Provide your analysis in a strict JSON format with no additional text or markdown. The JSON object must have four keys: 'verdict' (string: "Safe", "Suspicious", or "Phishing"), 'confidence' (number: 0-100), 'reasons' (array of strings explaining the verdict), and 'tips' (array of strings for user safety).`;
 
@@ -142,7 +164,7 @@ const ScanPage: React.FC = () => {
             <input
               type="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => setInput(e.g.target.value)}
               placeholder="e.g., http://secure-login-update.com"
               className={`flex-grow rounded-md px-4 py-3 focus:outline-none focus:ring-2 ${inputClasses}`}
               disabled={isLoading}
