@@ -1,8 +1,8 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
 /**
- * Dynamically and safely imports the GoogleGenerativeAI class, handling
- * different module export patterns in Vite environments.
  * Initializes and returns a configured Gemini model instance.
  */
 export async function getGeminiModel() {
@@ -10,25 +10,19 @@ export async function getGeminiModel() {
     throw new Error("VITE_GEMINI_API_KEY is not set. Please set it in your environment.");
   }
 
-  let GoogleGenerativeAI: any;
-
-  try {
-    // Attempt to import the module.
-    const genAIModule = await import("@google/generative-ai");
-    
-    // Handle common export patterns for the official SDK
-    GoogleGenerativeAI = genAIModule.GoogleGenerativeAI || (genAIModule as any).default;
-    
-  } catch (e) {
-    console.error("Failed to import @google/generative-ai", e);
-    throw new Error("Could not import the @google/generative-ai package.");
-  }
-
-  if (typeof GoogleGenerativeAI !== 'function') {
-    throw new Error("Could not find a valid GoogleGenerativeAI constructor in the @google/generative-ai package.");
-  }
-
+  // Initialize the client. The latest SDK should default to the v1 API.
   const genAI = new GoogleGenerativeAI(apiKey);
+
+  // --- Debugging Step: List available models ---
+  try {
+    const models = await genAI.listModels();
+    console.log("--- Available Gemini Models (v1 API) ---");
+    models.models.forEach(model => console.log(model.name));
+    console.log("-----------------------------------------");
+  } catch (e) {
+    console.warn("Could not list models. API key or network issue.", e);
+  }
+  // ---------------------------------------------
 
   // Return a configured model instance, centralizing the configuration.
   return genAI.getGenerativeModel({
