@@ -14,8 +14,8 @@ export default defineConfig({
         }
     },
     optimizeDeps: {
-        // Force pre-bundling for @google/genai to resolve module issues
-        include: ['@google/genai'],
+        // Force pre-bundling for @google/generative-ai to resolve module issues
+        include: ['@google/generative-ai'],
     },
     build: {
         commonjsOptions: {

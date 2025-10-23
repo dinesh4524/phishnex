@@ -14,30 +14,18 @@ export async function getGeminiModel() {
 
   try {
     // Attempt to import the module.
-    const genAIModule = await import("@google/genai");
+    const genAIModule = await import("@google/generative-ai");
     
-    // Handle various export patterns:
-    if (typeof genAIModule === 'function') {
-      // Case 1: Module root is the constructor (e.g., default export is the class)
-      GoogleGenerativeAI = genAIModule;
-    } else if (genAIModule.GoogleGenerativeAI) {
-      // Case 2: Named export 'GoogleGenerativeAI' exists directly on the module object
-      GoogleGenerativeAI = genAIModule.GoogleGenerativeAI;
-    } else if ((genAIModule as any).default && (genAIModule as any).default.GoogleGenerativeAI) {
-      // Case 3: Named export is nested under the default export
-      GoogleGenerativeAI = (genAIModule as any).default.GoogleGenerativeAI;
-    } else if ((genAIModule as any).default && typeof (genAIModule as any).default === 'function') {
-      // Case 4: Default export itself is the constructor (common fallback)
-      GoogleGenerativeAI = (genAIModule as any).default;
-    }
+    // Handle common export patterns for the official SDK
+    GoogleGenerativeAI = genAIModule.GoogleGenerativeAI || (genAIModule as any).default;
     
   } catch (e) {
-    console.error("Failed to import @google/genai", e);
-    throw new Error("Could not import the @google/genai package.");
+    console.error("Failed to import @google/generative-ai", e);
+    throw new Error("Could not import the @google/generative-ai package.");
   }
 
   if (typeof GoogleGenerativeAI !== 'function') {
-    throw new Error("Could not find a valid GoogleGenerativeAI constructor in the @google/genai package.");
+    throw new Error("Could not find a valid GoogleGenerativeAI constructor in the @google/generative-ai package.");
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
