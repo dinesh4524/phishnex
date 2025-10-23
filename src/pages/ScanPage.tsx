@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { ai } from '@/utils/gemini';
+import { aiPromise } from '@/utils/gemini';
 import type { ScanResult } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
 import { showPhishingAlert, showError as showErrorToast } from '@/utils/toast';
@@ -24,7 +24,8 @@ const ScanPage: React.FC = () => {
     setError(null);
 
     try {
-      // The AI client is now available directly, no promise needed.
+      // Await the promise to get the initialized AI client.
+      const ai = await aiPromise;
       const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
       
       const basePrompt = `Analyze the following ${scanMode} content for phishing characteristics. Provide your analysis in a strict JSON format with no additional text or markdown. The JSON object must have four keys: 'verdict' (string: "Safe", "Suspicious", or "Phishing"), 'confidence' (number: 0-100), 'reasons' (array of strings explaining the verdict), and 'tips' (array of strings for user safety).`;
