@@ -46,7 +46,17 @@ const ScanPage: React.FC = () => {
         },
       });
       
-      const jsonText = generationResult.response.text();
+      let jsonText = generationResult.response.text();
+      
+      // Clean the response to extract only the JSON part, making it more robust
+      const jsonMatch = jsonText.match(/\{[\s\S]*\}/);
+      if (jsonMatch && jsonMatch[0]) {
+        jsonText = jsonMatch[0];
+      } else {
+        // If no JSON object is found, throw an error to be caught below
+        throw new Error("The model did not return a valid JSON object.");
+      }
+
       const parsedResult: ScanResult = JSON.parse(jsonText);
       setResult(parsedResult);
       
@@ -63,6 +73,8 @@ const ScanPage: React.FC = () => {
           errorMessage = "The provided API key is not valid. Please check your key and environment variable, then restart the app.";
         } else if (e.message.toLowerCase().includes("quota")) {
           errorMessage = "You have exceeded your API quota. Please check your Google AI Studio account.";
+        } else if (e.message.includes("JSON")) {
+          errorMessage = "The analysis engine returned an invalid format. Please try again.";
         }
       }
       
