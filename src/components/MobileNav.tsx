@@ -46,7 +46,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ currentPage, setCurrentPage }) =>
     <>
       {/* Hamburger Button (Visible on Mobile) */}
       <button
-        onClick={()={() => setIsOpen(true)}
+        onClick={() => setIsOpen(true)}
         className={`p-2 rounded-full transition-all duration-300 md:hidden ${buttonClasses}`}
         aria-label="Open menu"
       >
