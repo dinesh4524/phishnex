@@ -63,7 +63,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ currentPage, setCurrentPage }) =>
 
       {/* Sidebar Menu */}
       <div 
-        className={`fixed top-0 left-0 h-full w-64 z-50 transform transition-transform duration-300 ease-in-out md:hidden ${sidebarClasses} ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed top-0 left-0 h-full w-full z-50 transform transition-transform duration-300 ease-in-out md:hidden ${sidebarClasses} ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="flex justify-between items-center p-6 border-b border-gray-700">
           <h2 className={`text-2xl font-orbitron font-bold ${theme === 'dark' ? 'text-white cyber-glow' : 'text-gray-900'}`}>PhishNex</h2>
