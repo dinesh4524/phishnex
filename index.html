@@ -53,15 +53,6 @@
 </head>
   <body>
     <div id="root"></div>
-    <!-- Load the Gemini library globally from a reliable source and attach it to the window object -->
-    <script type="module">
-      try {
-        const module = await import('https://esm.run/@google/generative-ai');
-        window.GoogleGenerativeAI = module.GoogleGenerativeAI;
-      } catch (e) {
-        console.error("Failed to load the Google AI library:", e);
-      }
-    </script>
     <script type="module" src="/src/index.tsx"></script>
 </body>
 </html>
