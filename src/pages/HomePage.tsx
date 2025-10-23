@@ -26,32 +26,27 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
   const subtitleClasses = theme === 'dark' ? 'text-gray-300' : 'text-gray-600';
 
   return (
-    <div className="container mx-auto px-6 h-full flex flex-col items-center justify-center text-center">
-      {/* Main Hero Content */}
-      <div className="animate-fade-in-down">
-        <div 
-          className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 transition-all duration-500 transform"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <Eye className={`w-full h-full transition-all duration-500 ${eyeClasses} ${isHovered ? 'opacity-20 scale-110' : 'opacity-80'}`} />
-          <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-purple-500 animate-spin-slow"></div>
-            <div className={`absolute w-16 h-16 md:w-20 md:h-20 rounded-full border-2 ${eyeClasses} animate-ping`}></div>
-            <p className={`absolute text-xs md:text-sm font-orbitron ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>PROTECTING</p>
-          </div>
+    <div className="container mx-auto px-6 py-12 md:py-24 text-center flex flex-col items-center">
+      <div 
+        className="relative w-48 h-48 mb-8 transition-all duration-500 transform"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <Eye className={`w-full h-full transition-all duration-500 ${eyeClasses} ${isHovered ? 'opacity-20 scale-110' : 'opacity-80'}`} />
+        <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="w-24 h-24 rounded-full border-2 border-purple-500 animate-spin-slow"></div>
+          <div className={`absolute w-20 h-20 rounded-full border-2 ${eyeClasses} animate-ping`}></div>
+          <p className={`absolute text-sm font-orbitron ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>PROTECTING</p>
         </div>
-        
-        <h1 className={`text-5xl md:text-6xl font-orbitron font-bold mb-3 ${titleClasses}`}>
-          PhishNex
-        </h1>
-        <p className={`text-lg md:text-xl mb-10 max-w-2xl mx-auto ${subtitleClasses}`}>
-          Your Digital Shield Against Phishing & Online Scams
-        </p>
       </div>
-
-      {/* Action Buttons */}
-      <div className="w-full max-w-sm md:max-w-none grid grid-cols-2 md:flex md:flex-row gap-4 md:gap-6 mb-12 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+      
+      <h1 className={`text-5xl md:text-7xl font-orbitron font-bold mb-4 ${titleClasses} animate-fade-in-down`}>
+        PhishNex
+      </h1>
+      <p className={`text-xl md:text-2xl mb-12 animate-fade-in-up ${subtitleClasses}`} style={{ animationDelay: '0.5s' }}>
+        Your Digital Shield Against Phishing & Online Scams
+      </p>
+      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 animate-fade-in-up" style={{ animationDelay: '1s' }}>
         <GlitchButton onClick={() => handleNav('scan')} icon={<ScanLine />}>
           Scan
         </GlitchButton>
@@ -66,8 +61,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
         </GlitchButton>
       </div>
 
-      {/* Security Tip */}
-      <div className="w-full max-w-2xl animate-fade-in-up" style={{ animationDelay: '1s' }}>
+      <div className="mt-16 w-full max-w-2xl animate-fade-in-up" style={{ animationDelay: '1.5s' }}>
         <RandomTip />
       </div>
     </div>
