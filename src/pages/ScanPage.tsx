@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import type { ScanResult } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
 import { showPhishingAlert, showError as showErrorToast } from '@/utils/toast';
+import ai from '@/utils/gemini';
 
 type ScanMode = 'url' | 'email' | 'message';
 
@@ -12,30 +13,10 @@ const ScanPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [aiModule, setAiModule] = useState<any>(null);
-
-  // Dynamically import the AI module on component mount
-  useEffect(() => {
-    const loadAiModule = async () => {
-      try {
-        const module = await import('@google/genai');
-        setAiModule(module);
-      } catch (err) {
-        console.error("Failed to load AI module", err);
-        setError("Failed to initialize the analysis engine. Please try again later.");
-      }
-    };
-
-    loadAiModule();
-  }, []);
 
   const analyzeContent = useCallback(async () => {
     if (!input) {
       setError('Please enter content to analyze.');
-      return;
-    }
-    if (!aiModule) {
-      setError('Analysis engine is still loading. Please try again in a moment.');
       return;
     }
     setIsLoading(true);
@@ -43,27 +24,14 @@ const ScanPage: React.FC = () => {
     setError(null);
 
     try {
-      // Configure the model with safety settings disabled to allow analysis of suspicious content.
-      const model = new aiModule.GoogleGenerativeAI({
-        apiKey: import.meta.env.VITE_GEMINI_API_KEY,
+      // Get the generative model from the pre-configured client
+      const model = ai.getGenerativeModel({
         model: "gemini-1.5-flash",
         safetySettings: [
-          {
-            category: "HARM_CATEGORY_HARASSMENT",
-            threshold: "BLOCK_NONE",
-          },
-          {
-            category: "HARM_CATEGORY_HATE_SPEECH",
-            threshold: "BLOCK_NONE",
-          },
-          {
-            category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-            threshold: "BLOCK_NONE",
-          },
-          {
-            category: "HARM_CATEGORY_DANGEROUS_CONTENT",
-            threshold: "BLOCK_NONE",
-          },
+          { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+          { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+          { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+          { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
         ],
       });
       
@@ -102,7 +70,7 @@ const ScanPage: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [input, scanMode, aiModule]);
+  }, [input, scanMode]);
   
   const handleModeChange = (mode: ScanMode) => {
     setScanMode(mode);
@@ -200,10 +168,10 @@ const ScanPage: React.FC = () => {
           )}
           <button
             onClick={analyzeContent}
-            disabled={isLoading || !input || !aiModule}
+            disabled={isLoading || !input}
             className={`px-8 py-3 font-bold rounded-md transition-colors flex items-center justify-center ${scanButtonClasses}`}
           >
-            {isLoading ? 'Scanning...' : !aiModule ? 'Loading...' : 'Scan'}
+            {isLoading ? 'Scanning...' : 'Scan'}
           </button>
         </div>
         {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
